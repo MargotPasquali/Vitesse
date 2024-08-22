@@ -21,6 +21,10 @@
 		AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */; };
 		AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FE2C75003B00C67C4A /* RegisterService.swift */; };
 		AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */; };
+		AE50F6032C763CE900C67C4A /* ApplicantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6022C763CE900C67C4A /* ApplicantListView.swift */; };
+		AE50F6052C76407500C67C4A /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6042C76407500C67C4A /* ApplicantService.swift */; };
+		AE50F6072C76437D00C67C4A /* ApplicantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6062C76437D00C67C4A /* ApplicantDetail.swift */; };
+		AE50F6092C76450A00C67C4A /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6082C76450A00C67C4A /* ApplicantListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,10 @@
 		AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		AE50F5FE2C75003B00C67C4A /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		AE50F6022C763CE900C67C4A /* ApplicantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListView.swift; sourceTree = "<group>"; };
+		AE50F6042C76407500C67C4A /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
+		AE50F6062C76437D00C67C4A /* ApplicantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetail.swift; sourceTree = "<group>"; };
+		AE50F6082C76450A00C67C4A /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,7 @@
 			children = (
 				AE50F5EA2C73913600C67C4A /* LoginView.swift */,
 				AE50F5F02C73B8B200C67C4A /* RegisterView.swift */,
+				AE50F6022C763CE900C67C4A /* ApplicantListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,6 +114,7 @@
 			children = (
 				AE50F5EC2C7391C900C67C4A /* LoginViewModel.swift */,
 				AE50F5F22C73B8F400C67C4A /* RegisterViewModel.swift */,
+				AE50F6082C76450A00C67C4A /* ApplicantListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -115,6 +125,7 @@
 				AE50F5F82C74F7DD00C67C4A /* AuthenticationRequest.swift */,
 				AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */,
 				AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */,
+				AE50F6062C76437D00C67C4A /* ApplicantDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -125,6 +136,7 @@
 				AE50F5F62C74F54600C67C4A /* AuthenticationService.swift */,
 				AE50F5FA2C74FB9C00C67C4A /* URLSessionProtocol.swift */,
 				AE50F5FE2C75003B00C67C4A /* RegisterService.swift */,
+				AE50F6042C76407500C67C4A /* ApplicantService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -212,9 +224,13 @@
 				AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */,
 				AE50F5F32C73B8F400C67C4A /* RegisterViewModel.swift in Sources */,
 				AE50F5F12C73B8B200C67C4A /* RegisterView.swift in Sources */,
+				AE50F6072C76437D00C67C4A /* ApplicantDetail.swift in Sources */,
 				AE50F5F52C74F51D00C67C4A /* NetworkManager.swift in Sources */,
+				AE50F6032C763CE900C67C4A /* ApplicantListView.swift in Sources */,
 				AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */,
+				AE50F6052C76407500C67C4A /* ApplicantService.swift in Sources */,
 				AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */,
+				AE50F6092C76450A00C67C4A /* ApplicantListViewModel.swift in Sources */,
 				AE50F5ED2C7391C900C67C4A /* LoginViewModel.swift in Sources */,
 				AE50F5F92C74F7DD00C67C4A /* AuthenticationRequest.swift in Sources */,
 				AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */,

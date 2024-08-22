@@ -13,6 +13,7 @@ struct RegisterView: View {
     @State private var showAlert = false // State to show the alert (success or error)
     @State private var navigateToLogin = false // State to trigger navigation to LoginView
     @State private var alertMessage = "" // Message to display in the alert
+    @State private var isSuccess = false // State to determine the type of alert (success or error)
     
     var body: some View {
         ZStack {
@@ -29,7 +30,7 @@ struct RegisterView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("First Name")
                         .font(.headline)
-                    TextField("", text: $viewModel.firstName)
+                    TextField("First Name", text: $viewModel.firstName)
                         .padding()
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
@@ -38,7 +39,7 @@ struct RegisterView: View {
                     
                     Text("Last Name")
                         .font(.headline)
-                    TextField("", text: $viewModel.lastName)
+                    TextField("Last Name", text: $viewModel.lastName)
                         .padding()
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
@@ -47,7 +48,7 @@ struct RegisterView: View {
                     
                     Text("Email")
                         .font(.headline)
-                    TextField("", text: $viewModel.email)
+                    TextField("Email", text: $viewModel.email)
                         .padding()
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
@@ -57,14 +58,14 @@ struct RegisterView: View {
                     
                     Text("Password")
                         .font(.headline)
-                    SecureField("", text: $viewModel.password)
+                    SecureField("Password", text: $viewModel.password)
                         .padding()
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
                     
                     Text("Confirm Password")
                         .font(.headline)
-                    SecureField("", text: $viewModel.confirmPassword)
+                    SecureField("Confirm Password", text: $viewModel.confirmPassword)
                         .padding()
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
@@ -79,19 +80,20 @@ struct RegisterView: View {
                 
                 // Create Button
                 Button(action: {
-                    if viewModel.isFormValid() {
-                        let registrationSuccess = viewModel.register()
-                        
-                        if registrationSuccess {
-                            alertMessage = "Your account has been created successfully!"
+                    Task {
+                        if viewModel.isFormValid() {
+                            let registrationSuccess = await viewModel.register()
+                            if registrationSuccess {
+                                alertMessage = "Your account has been created successfully!"
+                                isSuccess = true
+                            } else {
+                                alertMessage = "Account creation failed. Please try again."
+                                isSuccess = false
+                            }
                             showAlert = true
-                            navigateToLogin = true
                         } else {
-                            alertMessage = "Account creation failed. Please try again."
-                            showAlert = true
+                            viewModel.errorMessage = "Please fill in all fields correctly."
                         }
-                    } else {
-                        viewModel.errorMessage = "Please fill in all fields correctly."
                     }
                 }) {
                     Text("Create")
@@ -101,23 +103,18 @@ struct RegisterView: View {
                         .background(viewModel.isFormValid() ? Color.black : Color.gray)
                         .cornerRadius(8)
                 }
-                .disabled(!viewModel.isFormValid()) // Disable the button if the form is not valid
+                .disabled(!viewModel.isFormValid())
+
                 .alert(isPresented: $showAlert) {
-                    if navigateToLogin {
-                        return Alert(
-                            title: Text("Success"),
-                            message: Text(alertMessage),
-                            dismissButton: .default(Text("OK")) {
-                                navigateToLogin = true // Trigger navigation to LoginView
+                    Alert(
+                        title: Text(isSuccess ? "Success" : "Error"),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK")) {
+                            if isSuccess {
+                                navigateToLogin = true // Trigger navigation to LoginView only on success
                             }
-                        )
-                    } else {
-                        return Alert(
-                            title: Text("Error"),
-                            message: Text(alertMessage),
-                            dismissButton: .default(Text("OK"))
-                        )
-                    }
+                        }
+                    )
                 }
                 
                 // Navigation to LoginView

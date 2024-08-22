@@ -9,7 +9,7 @@ import Foundation
 
 protocol RegisterService {
     var networkManager: NetworkManagerProtocol { get }
-    init(networkManager: NetworkManagerProtocol)
+    func createNewAccount(email: String, password: String, firstName: String, lastName: String) async throws
 }
 
 enum RegisterServiceError: Error {
@@ -32,17 +32,44 @@ final class RemoteRegisterService: RegisterService {
         self.networkManager = networkManager
     }
     
-    func createNewAccount(username: String, password: String, firstName: String, lastName: String) async throws {
-        guard !username.isEmpty, !password.isEmpty, !firstName.isEmpty, !lastName.isEmpty else {
-            throw AuthenticationServiceError.invalidCredentials
+    func createNewAccount(email: String, password: String, firstName: String, lastName: String) async throws {
+        guard !email.isEmpty, !password.isEmpty, !firstName.isEmpty, !lastName.isEmpty else {
+            throw RegisterServiceError.invalidCredentials
         }
         
         var request = URLRequest(url: RemoteRegisterService.url.appendingPathComponent("/user/register"))
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let credentials = RegisterRequest(username: username, password: password, firstName: firstName, lastName: lastName)
+        let credentials = RegisterRequest(email: email, password: password, firstName: firstName, lastName: lastName)
         request.httpBody = try JSONEncoder().encode(credentials)
+        
+        do {
+            let (data, response) = try await networkManager.data(for: request, authenticatedRequest: false)
+            print("Received data from network.")
+            
+            guard response.statusCode == 200 else {
+                print("Received error response: \(response.statusCode)")
+                if response.statusCode == 401 {
+                    throw RegisterServiceError.unauthorized
+                } else if response.statusCode >= 500 {
+                    throw RegisterServiceError.serverError
+                } else {
+                    throw RegisterServiceError.invalidResponse
+                }
+            }
+            
+        } catch let error as RegisterServiceError {
+            throw error
+        } catch let urlError as URLError {
+            print("Caught URLError: \(urlError)")
+            throw RegisterServiceError.networkError(urlError)
+        } catch let decodingError as DecodingError {
+            print("Decoding error: \(decodingError)")
+            throw RegisterServiceError.decodingError(decodingError)
+        } catch {
+            print("Caught unknown error: \(error)")
+            throw RegisterServiceError.unknown
+        }
     }
-    
 }

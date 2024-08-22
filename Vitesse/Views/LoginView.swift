@@ -9,12 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
-    
-    
     @ObservedObject var viewModel: LoginViewModel
-    @State private var showDestination = false
+    @State private var showListView = false // Use a Bool to handle navigation
     
     var body: some View {
         NavigationStack {
@@ -61,7 +57,10 @@ struct LoginView: View {
                     // Sign In Button
                     Button(action: {
                         Task {
-                            // try await viewModel.login()
+                            let success = await viewModel.login()
+                            if success {
+                                showListView = true // Trigger navigation on successful login
+                            }
                         }
                     }) {
                         Text("Sign In")
@@ -72,8 +71,7 @@ struct LoginView: View {
                             .cornerRadius(8)
                     }
                     
-                    // Register Button (now inside the VStack, below Sign In)
-                    
+                    // Register Button
                     NavigationLink(destination: RegisterView()) {
                         Text("Register")
                             .foregroundColor(.black)
@@ -92,9 +90,13 @@ struct LoginView: View {
             .onTapGesture {
                 // Hide keyboard
             }
+            .navigationDestination(isPresented: $showListView) {
+                ApplicantListView(viewModel: ApplicantListViewModel()) // Navigation to ListeView
+            }
         }
     }
 }
+
 
 #Preview {
     LoginView(viewModel: LoginViewModel())

@@ -37,7 +37,7 @@ final class NetworkManager: NetworkManagerProtocol {
             guard let token = token else {
                 throw AuthenticationServiceError.missingToken
             }
-            customRequest.setValue(token, forHTTPHeaderField: "token")
+            customRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
         do {
