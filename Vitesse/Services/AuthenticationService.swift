@@ -42,15 +42,18 @@ final class RemoteAuthenticationService: AuthenticationService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let credentials = AuthenticationRequest(username: username, password: password)
-        request.httpBody = try JSONEncoder().encode(credentials)
+        // Utilisation de la clé correcte "email" dans les credentials
+        let credentials = ["email": username, "password": password]
+        request.httpBody = try JSONSerialization.data(withJSONObject: credentials, options: [])
         
         do {
+            // Envoyer la requête et recevoir la réponse
             let (data, response) = try await networkManager.data(for: request, authenticatedRequest: false)
             print("Received data from network.")
             
+            // Vérifier le code de statut de la réponse
             guard response.statusCode == 200 else {
-                print("Received error response: \(response.statusCode)")
+                print("Expected 200, got \(response.statusCode). Full response: \(String(data: data, encoding: .utf8) ?? "No data")")
                 if response.statusCode == 401 {
                     throw AuthenticationServiceError.unauthorized
                 } else if response.statusCode >= 500 {
@@ -60,17 +63,32 @@ final class RemoteAuthenticationService: AuthenticationService {
                 }
             }
             
+            // Afficher la réponse brute pour le débogage
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Raw JSON response: \(jsonString)")
+            } else {
+                print("Unable to convert data to string")
+            }
+            
+            // Décoder la réponse en objet
             let authenticationResponse = try JSONDecoder().decode(AuthenticationResponse.self, from: data)
             print("Decoded authentication response: \(authenticationResponse)")
             
-            if authenticationResponse.token == "INVALID_TOKEN" {
+            // Vérifier et afficher le token reçu
+            let token = authenticationResponse.token
+            print("Received token: \(token)")
+            
+            if token == "INVALID_TOKEN" {
                 print("Unauthorized token received.")
                 throw AuthenticationServiceError.unauthorized
             }
             
-            networkManager.set(token: authenticationResponse.token)
+            // Stocker le token dans le network manager
+            networkManager.set(token: token)
+            print("Token successfully stored in NetworkManager.")
+            
             let isAdmin = authenticationResponse.isAdmin
-
+            print("Is Admin: \(isAdmin)")
             
         } catch let error as AuthenticationServiceError {
             throw error

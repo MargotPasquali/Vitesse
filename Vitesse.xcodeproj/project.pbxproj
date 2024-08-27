@@ -17,10 +17,13 @@
 		AE50F5F52C74F51D00C67C4A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5F42C74F51D00C67C4A /* NetworkManager.swift */; };
 		AE50F5F72C74F54600C67C4A /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5F62C74F54600C67C4A /* AuthenticationService.swift */; };
 		AE50F5F92C74F7DD00C67C4A /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5F82C74F7DD00C67C4A /* AuthenticationRequest.swift */; };
-		AE50F5FB2C74FB9C00C67C4A /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FA2C74FB9C00C67C4A /* URLSessionProtocol.swift */; };
 		AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */; };
 		AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FE2C75003B00C67C4A /* RegisterService.swift */; };
 		AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */; };
+		AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */; };
+		AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */; };
+		AEDF44FE2C7CCF5200435314 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */; };
+		AEDF45002C7CD0B300435314 /* ApplicantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,10 +38,13 @@
 		AE50F5F42C74F51D00C67C4A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AE50F5F62C74F54600C67C4A /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		AE50F5F82C74F7DD00C67C4A /* AuthenticationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequest.swift; sourceTree = "<group>"; };
-		AE50F5FA2C74FB9C00C67C4A /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		AE50F5FE2C75003B00C67C4A /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListView.swift; sourceTree = "<group>"; };
+		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
+		AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
+		AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,7 @@
 			children = (
 				AE50F5EA2C73913600C67C4A /* LoginView.swift */,
 				AE50F5F02C73B8B200C67C4A /* RegisterView.swift */,
+				AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,6 +112,7 @@
 			children = (
 				AE50F5EC2C7391C900C67C4A /* LoginViewModel.swift */,
 				AE50F5F22C73B8F400C67C4A /* RegisterViewModel.swift */,
+				AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -115,6 +123,7 @@
 				AE50F5F82C74F7DD00C67C4A /* AuthenticationRequest.swift */,
 				AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */,
 				AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */,
+				AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,8 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				AE50F5F62C74F54600C67C4A /* AuthenticationService.swift */,
-				AE50F5FA2C74FB9C00C67C4A /* URLSessionProtocol.swift */,
 				AE50F5FE2C75003B00C67C4A /* RegisterService.swift */,
+				AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -207,7 +216,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE50F5FB2C74FB9C00C67C4A /* URLSessionProtocol.swift in Sources */,
 				AE50F5EB2C73913600C67C4A /* LoginView.swift in Sources */,
 				AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */,
 				AE50F5F32C73B8F400C67C4A /* RegisterViewModel.swift in Sources */,
@@ -215,10 +223,14 @@
 				AE50F5F52C74F51D00C67C4A /* NetworkManager.swift in Sources */,
 				AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */,
 				AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */,
+				AEDF44FE2C7CCF5200435314 /* ApplicantService.swift in Sources */,
+				AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */,
 				AE50F5ED2C7391C900C67C4A /* LoginViewModel.swift in Sources */,
 				AE50F5F92C74F7DD00C67C4A /* AuthenticationRequest.swift in Sources */,
 				AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */,
 				AE50F5F72C74F54600C67C4A /* AuthenticationService.swift in Sources */,
+				AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */,
+				AEDF45002C7CD0B300435314 /* ApplicantDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

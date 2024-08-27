@@ -12,86 +12,91 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     
-    
     @ObservedObject var viewModel: LoginViewModel
     @State private var showDestination = false
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            VStack(spacing: 16) { // Ajustez l'espacement ici pour réduire l'espace
+                Image("Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250)
                 
-                VStack(spacing: 20) {
-                    Image("Logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 250)
+                Text("Login")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                
+                VStack(alignment: .leading, spacing: 12) { // Ajustez l'espacement interne ici
+                    Text("Email/Username")
+                        .font(.headline)
                     
-                    Text("Login")
-                        .font(.largeTitle)
-                        .fontWeight(.semibold)
+                    TextField("Adresse email", text: $viewModel.email)
+                        .padding()
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .cornerRadius(8)
+                        .autocapitalization(.none)
+                        .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
                     
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("Email/Username")
-                            .font(.headline)
-                        
-                        TextField("Adresse email", text: $viewModel.username)
-                            .padding()
-                            .background(Color(UIColor.secondarySystemBackground))
-                            .cornerRadius(8)
-                            .autocapitalization(.none)
-                            .keyboardType(.emailAddress)
-                            .disableAutocorrection(true)
-                        
-                        Text("Password")
-                            .font(.headline)
-                        
-                        SecureField("Mot de passe", text: $viewModel.password)
-                            .padding()
-                            .background(Color(UIColor.secondarySystemBackground))
-                            .cornerRadius(8)
-                    }
+                    Text("Password")
+                        .font(.headline)
                     
-                    if let errorMessage = viewModel.errorMessage {
-                        Text(errorMessage)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                    }
-                    
-                    // Sign In Button
-                    Button(action: {
-                        Task {
-                            // try await viewModel.login()
-                        }
-                    }) {
-                        Text("Sign In")
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.black)
-                            .cornerRadius(8)
-                    }
-                    
-                    // Register Button (now inside the VStack, below Sign In)
-                    
-                    NavigationLink(destination: RegisterView()) {
-                        Text("Register")
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.black, lineWidth: 2)
-                            )
-                    }
+                    SecureField("Mot de passe", text: $viewModel.password)
+                        .padding()
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .cornerRadius(8)
                 }
-                .padding(.horizontal, 40)
+                
+                if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 8)
+                }
+                
+                // Sign In Button
+                Button(action: {
+                    Task {
+                        do {
+                            try await viewModel.login()
+                            showDestination = true // Passer à ApplicantListView après le succès
+                        } catch {
+                            // Handle error if needed
+                            print("Login failed with error: \(error.localizedDescription)")
+                        }
+                    }
+                }) {
+                    Text("Sign In")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.black)
+                        .cornerRadius(8)
+                }
+                
+                // Register Button
+                NavigationLink(destination: RegisterView()) {
+                    Text("Register")
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.black, lineWidth: 2)
+                        )
+                }
+                
+                NavigationLink(destination: ApplicantListView(viewModel: ApplicantListViewModel()), isActive: $showDestination) {
+                    EmptyView()
+                }
             }
-            .onTapGesture {
-                // Hide keyboard
-            }
+            .padding(.horizontal, 40)
+        }
+        .onTapGesture {
+            // Hide keyboard
         }
     }
 }
