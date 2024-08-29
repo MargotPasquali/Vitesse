@@ -9,30 +9,31 @@ import SwiftUI
 
 struct ApplicantListView: View {
     
-    @ObservedObject var viewModel: ApplicantListViewModel
-    
+    @ObservedObject
+    var viewModel: ApplicantListViewModel
+
     var body: some View {
-        ScrollView {
+        List {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Candidates")
-                    .font(.headline)
-                    .padding([.horizontal])
-                
                 // Affichage de la liste des candidats
                 ForEach(viewModel.applicants) { applicant in
                     HStack {
                         VStack(alignment: .leading) {
                             Text(applicant.firstName)
                                 .font(.headline)
+
                             Text(applicant.lastName)
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
+
                         Spacer()
+
                         VStack(alignment: .leading) {
                             Text(applicant.email)
                                 .font(.subheadline)
                                 .foregroundColor(.blue)
+                            
                             Text(applicant.phone ?? "No phone")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
@@ -45,6 +46,7 @@ struct ApplicantListView: View {
                 }
             }
         }
+        .navigationTitle("Candidates")
         .onAppear {
             Task {
                 await viewModel.fetchApplicantDetailList()

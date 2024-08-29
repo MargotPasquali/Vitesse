@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import VitesseNetworking
+
 class LoginViewModel: ObservableObject {
     // MARK: - Enums
     
@@ -17,8 +19,8 @@ class LoginViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var email: String = ""
-    @Published var password: String = ""
+    @Published var email: String = "john.appleseed@apple.com"
+    @Published var password: String = "Password123"
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
@@ -32,6 +34,9 @@ class LoginViewModel: ObservableObject {
         self.authenticationService = authenticationService
         self.applicantService = applicantService
         self.callback = callback
+
+
+        let dummy = Dummy(firstName: "", lastName: "")
     }
     
     static func validateEmail(_ email: String) -> Bool {
@@ -66,25 +71,6 @@ class LoginViewModel: ObservableObject {
     
     // MARK: - Account Details Methods
     
-    /// Récupère les détails du compte de l'utilisateur après une authentification réussie.
-    @MainActor
-    func retrieveApplicantDetails() async throws {
-        print("Retrieving account details") // Debug
-        
-        errorMessage = nil
-        
-        do {
-            let applicantDetails = try await applicantService.getAllCandidates()
-            print("Account details retrieved: \(applicantDetails)") // Debug
-    callback(true)
-
-        } catch {
-            isLoading = false
-            print("Failed to retrieve account details with error: \(error.localizedDescription)") // Debug
-            throw LoginViewModelError.missingAccountDetails
-        }
-    }
-    
     // MARK: - Login Process
     
     /// Processus de connexion complet, incluant l'authentification et la récupération des détails du compte.
@@ -97,8 +83,6 @@ class LoginViewModel: ObservableObject {
             
             try await performAuthentication()
             print("Authentication step completed successfully") // Debug
-            try await retrieveApplicantDetails()
-            print("Account details retrieval step completed successfully") // Debug
             
             isLoading = false
         } catch {

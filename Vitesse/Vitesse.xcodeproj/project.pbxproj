@@ -24,7 +24,23 @@
 		AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */; };
 		AEDF44FE2C7CCF5200435314 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */; };
 		AEDF45002C7CD0B300435314 /* ApplicantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */; };
+		EDBE9C1D2C80A551004AC0E6 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBE9C1C2C80A551004AC0E6 /* VitesseNetworking.framework */; };
+		EDBE9C1E2C80A551004AC0E6 /* VitesseNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EDBE9C1C2C80A551004AC0E6 /* VitesseNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EDBE9C1F2C80A551004AC0E6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EDBE9C1E2C80A551004AC0E6 /* VitesseNetworking.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AE50F5D42C738F6300C67C4A /* Vitesse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vitesse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +61,7 @@
 		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
 		AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
 		AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetail.swift; sourceTree = "<group>"; };
+		EDBE9C1C2C80A551004AC0E6 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDBE9C1D2C80A551004AC0E6 /* VitesseNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,8 +79,10 @@
 		AE50F5CB2C738F6300C67C4A = {
 			isa = PBXGroup;
 			children = (
-				AE50F5D62C738F6300C67C4A /* Vitesse */,
+				EDBE9C042C80A3EF004AC0E6 /* Resources */,
+				AE50F5D62C738F6300C67C4A /* Sources */,
 				AE50F5D52C738F6300C67C4A /* Products */,
+				EDBE9C1B2C80A551004AC0E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,7 +94,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AE50F5D62C738F6300C67C4A /* Vitesse */ = {
+		AE50F5D62C738F6300C67C4A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				AE50F5E92C73905200C67C4A /* Managers */,
@@ -83,10 +103,8 @@
 				AE50F5E62C73901700C67C4A /* ViewModels */,
 				AE50F5E52C738FED00C67C4A /* Views */,
 				AE50F5D72C738F6300C67C4A /* VitesseApp.swift */,
-				AE50F5DB2C738F6500C67C4A /* Assets.xcassets */,
-				AE50F5DD2C738F6500C67C4A /* Preview Content */,
 			);
-			path = Vitesse;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		AE50F5DD2C738F6500C67C4A /* Preview Content */ = {
@@ -146,6 +164,23 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		EDBE9C042C80A3EF004AC0E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE50F5DD2C738F6500C67C4A /* Preview Content */,
+				AE50F5DB2C738F6500C67C4A /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EDBE9C1B2C80A551004AC0E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDBE9C1C2C80A551004AC0E6 /* VitesseNetworking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -156,6 +191,7 @@
 				AE50F5D02C738F6300C67C4A /* Sources */,
 				AE50F5D12C738F6300C67C4A /* Frameworks */,
 				AE50F5D22C738F6300C67C4A /* Resources */,
+				EDBE9C1F2C80A551004AC0E6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,7 +399,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Vitesse/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = FQJ5XK4959;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -392,7 +428,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Vitesse/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = FQJ5XK4959;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
