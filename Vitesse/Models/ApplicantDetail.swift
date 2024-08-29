@@ -8,11 +8,12 @@
 import Foundation
 
 struct ApplicantDetail: Identifiable, Codable {
-    let id : String
-    let phone: String
-    let note: String
-    let firstName: String
-    let linkedinURL: String
-    let applicantEmail: String  // Renommé pour éviter la confusion
-    let lastName: String
+    var id: UUID?  // UUID optionnel
+    var firstName: String
+    var lastName: String
+    var email: String
+    var phone: String?  // Optionnel
+    var linkedinURL: String?  // Optionnel
+    var note: String?  // Optionnel
+    var isFavorite: Bool
 }

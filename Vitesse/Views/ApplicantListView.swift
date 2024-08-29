@@ -30,10 +30,10 @@ struct ApplicantListView: View {
                         }
                         Spacer()
                         VStack(alignment: .leading) {
-                            Text(applicant.applicantEmail)
+                            Text(applicant.email)
                                 .font(.subheadline)
                                 .foregroundColor(.blue)
-                            Text(applicant.phone)
+                            Text(applicant.phone ?? "No phone")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -46,7 +46,9 @@ struct ApplicantListView: View {
             }
         }
         .onAppear {
-            viewModel.authenticateAndFetchApplicants()
+            Task {
+                await viewModel.fetchApplicantDetailList()
+            }
         }
     }
 }

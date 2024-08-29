@@ -35,6 +35,7 @@ final class RemoteAuthenticationService: AuthenticationService {
     
     func authenticate(username: String, password: String) async throws {
         guard !username.isEmpty, !password.isEmpty else {
+            print("Error: Email or password is empty")
             throw AuthenticationServiceError.invalidCredentials
         }
         

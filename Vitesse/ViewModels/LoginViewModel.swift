@@ -68,13 +68,13 @@ class LoginViewModel: ObservableObject {
     
     /// Récupère les détails du compte de l'utilisateur après une authentification réussie.
     @MainActor
-    func retrieveAccountDetails() async throws {
+    func retrieveApplicantDetails() async throws {
         print("Retrieving account details") // Debug
         
         errorMessage = nil
         
         do {
-            let applicantDetails = try await applicantService.getCandidate()
+            let applicantDetails = try await applicantService.getAllCandidates()
             print("Account details retrieved: \(applicantDetails)") // Debug
     callback(true)
 
@@ -97,7 +97,7 @@ class LoginViewModel: ObservableObject {
             
             try await performAuthentication()
             print("Authentication step completed successfully") // Debug
-            try await retrieveAccountDetails()
+            try await retrieveApplicantDetails()
             print("Account details retrieval step completed successfully") // Debug
             
             isLoading = false

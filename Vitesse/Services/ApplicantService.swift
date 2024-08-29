@@ -9,7 +9,7 @@ import Foundation
 
 protocol ApplicantService {
     var networkManager: NetworkManagerProtocol { get }
-    func getCandidate() async throws -> [ApplicantDetail]
+    func getAllCandidates() async throws -> [ApplicantDetail]
 
 }
 
@@ -33,7 +33,7 @@ final class RemoteApplicantService: ApplicantService {
         self.networkManager = networkManager
     }
     
-    func getCandidate() async throws -> [ApplicantDetail] {
+    func getAllCandidates() async throws -> [ApplicantDetail] {
         let request = URLRequest(url: RemoteApplicantService.url.appendingPathComponent("/candidate"))
 
         // Debug: Afficher l'URL de la requête
