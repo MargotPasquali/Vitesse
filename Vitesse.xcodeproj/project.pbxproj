@@ -20,10 +20,14 @@
 		AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */; };
 		AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5FE2C75003B00C67C4A /* RegisterService.swift */; };
 		AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */; };
+		AE7B603E2C85EBF100D17519 /* ApplicantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B603D2C85EBF100D17519 /* ApplicantDetailView.swift */; };
+		AE7B60402C85EE9400D17519 /* isFavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B603F2C85EE9400D17519 /* isFavoriteView.swift */; };
+		AE7B60432C85F46600D17519 /* ApplicantListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */; };
 		AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */; };
 		AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */; };
 		AEDF44FE2C7CCF5200435314 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */; };
 		AEDF45002C7CD0B300435314 /* ApplicantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */; };
+		AEDF45042C80C2B700435314 /* ApplicationCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF45032C80C2B700435314 /* ApplicationCreationRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,10 +45,14 @@
 		AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		AE50F5FE2C75003B00C67C4A /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		AE7B603D2C85EBF100D17519 /* ApplicantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailView.swift; sourceTree = "<group>"; };
+		AE7B603F2C85EE9400D17519 /* isFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isFavoriteView.swift; sourceTree = "<group>"; };
+		AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListRowView.swift; sourceTree = "<group>"; };
 		AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListView.swift; sourceTree = "<group>"; };
 		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
 		AEDF44FD2C7CCF5200435314 /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
 		AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetail.swift; sourceTree = "<group>"; };
+		AEDF45032C80C2B700435314 /* ApplicationCreationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCreationRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +108,11 @@
 		AE50F5E52C738FED00C67C4A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AE7B60412C85EE9A00D17519 /* Utilities */,
 				AE50F5EA2C73913600C67C4A /* LoginView.swift */,
 				AE50F5F02C73B8B200C67C4A /* RegisterView.swift */,
 				AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */,
+				AE7B603D2C85EBF100D17519 /* ApplicantDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -124,6 +134,7 @@
 				AE50F5FC2C74FCBD00C67C4A /* AuthenticationResponse.swift */,
 				AE50F6002C7617AF00C67C4A /* RegisterRequest.swift */,
 				AEDF44FF2C7CD0B300435314 /* ApplicantDetail.swift */,
+				AEDF45032C80C2B700435314 /* ApplicationCreationRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,6 +155,15 @@
 				AE50F5F42C74F51D00C67C4A /* NetworkManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		AE7B60412C85EE9A00D17519 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AE7B603F2C85EE9400D17519 /* isFavoriteView.swift */,
+				AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,14 +242,18 @@
 				AE50F5F12C73B8B200C67C4A /* RegisterView.swift in Sources */,
 				AE50F5F52C74F51D00C67C4A /* NetworkManager.swift in Sources */,
 				AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */,
+				AE7B603E2C85EBF100D17519 /* ApplicantDetailView.swift in Sources */,
 				AE50F5FF2C75003B00C67C4A /* RegisterService.swift in Sources */,
 				AEDF44FE2C7CCF5200435314 /* ApplicantService.swift in Sources */,
 				AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */,
+				AE7B60402C85EE9400D17519 /* isFavoriteView.swift in Sources */,
 				AE50F5ED2C7391C900C67C4A /* LoginViewModel.swift in Sources */,
+				AEDF45042C80C2B700435314 /* ApplicationCreationRequest.swift in Sources */,
 				AE50F5F92C74F7DD00C67C4A /* AuthenticationRequest.swift in Sources */,
 				AE50F5FD2C74FCBD00C67C4A /* AuthenticationResponse.swift in Sources */,
 				AE50F5F72C74F54600C67C4A /* AuthenticationService.swift in Sources */,
 				AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */,
+				AE7B60432C85F46600D17519 /* ApplicantListRowView.swift in Sources */,
 				AEDF45002C7CD0B300435314 /* ApplicantDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

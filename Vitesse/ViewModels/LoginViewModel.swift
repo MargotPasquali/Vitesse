@@ -17,8 +17,8 @@ class LoginViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var email: String = ""
-    @Published var password: String = ""
+    @Published var email: String = "admin@vitesse.com"
+    @Published var password: String = "test123"
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
@@ -64,26 +64,6 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Account Details Methods
-    
-    /// Récupère les détails du compte de l'utilisateur après une authentification réussie.
-    @MainActor
-    func retrieveApplicantDetails() async throws {
-        print("Retrieving account details") // Debug
-        
-        errorMessage = nil
-        
-        do {
-            let applicantDetails = try await applicantService.getAllCandidates()
-            print("Account details retrieved: \(applicantDetails)") // Debug
-    callback(true)
-
-        } catch {
-            isLoading = false
-            print("Failed to retrieve account details with error: \(error.localizedDescription)") // Debug
-            throw LoginViewModelError.missingAccountDetails
-        }
-    }
     
     // MARK: - Login Process
     
@@ -97,8 +77,6 @@ class LoginViewModel: ObservableObject {
             
             try await performAuthentication()
             print("Authentication step completed successfully") // Debug
-            try await retrieveApplicantDetails()
-            print("Account details retrieval step completed successfully") // Debug
             
             isLoading = false
         } catch {

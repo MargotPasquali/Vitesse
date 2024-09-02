@@ -8,11 +8,10 @@
 import Foundation
 
 class ApplicantListViewModel: ObservableObject {
-
-    // MARK: - Published Properties
-
-    @Published var applicants: [ApplicantDetail] = []
     
+    // MARK: - Published Properties
+    
+    @Published var applicants: [ApplicantDetail] = []
     @Published var email: String = ""
     @Published var password: String = ""
 
@@ -34,16 +33,15 @@ class ApplicantListViewModel: ObservableObject {
     func fetchApplicantDetailList() async {
         do {
             let applicantList = try await applicantService.getAllCandidates()
-            DispatchQueue.main.async {
-                self.applicants = applicantList
-                print("Fetched applicants: \(self.applicants.count) candidates found")
+            Task { @MainActor in
+                applicants = applicantList
             }
+            print("Fetched applicants: \(self.applicants.count) candidates found")
         } catch {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 print("Error fetching applicant detail list: \(error.localizedDescription)")
-                self.applicants = []
+                applicants = []
             }
         }
     }
-    
 }
