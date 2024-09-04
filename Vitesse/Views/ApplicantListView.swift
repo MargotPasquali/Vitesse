@@ -14,6 +14,9 @@ struct ApplicantListView: View {
     @State private var selectedApplicants: Set<UUID> = []
     @State private var showFavoritesOnly = false
 
+    // Simuler le statut admin pour cet exemple, vous pouvez le récupérer depuis un autre service
+    let isAdmin: Bool = true
+
     var body: some View {
         NavigationStack {
             List {
@@ -26,10 +29,15 @@ struct ApplicantListView: View {
                                 }
                         }
 
-                        NavigationLink(destination: ApplicantDetailView(applicant: applicant)) {
-                            ApplicantListRowView(applicant: applicant)
+                        // Création du ApplicantDetailViewModel avec l'information isAdmin
+                        NavigationLink(destination: ApplicantDetailView(viewModel: ApplicantDetailViewModel(applicant: applicant, isAdmin: isAdmin))) {
+                            ApplicantListRowView(applicant: applicant) {
+                                Task {
+                                    await viewModel.toggleFavoriteStatus(for: applicant)
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -41,9 +49,9 @@ struct ApplicantListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if editMode?.wrappedValue == .active && !selectedApplicants.isEmpty {
-                        Button(action: toggleFavoriteStatus) {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
+                        Button(action: deleteSelectedApplicants) {
+                            Text("Delete")
+                                .foregroundColor(.red)
                         }
                     } else {
                         Button(action: {
@@ -89,11 +97,11 @@ struct ApplicantListView: View {
         }
     }
 
-    private func toggleFavoriteStatus() {
+    private func deleteSelectedApplicants() {
         for id in selectedApplicants {
             if let applicant = viewModel.applicants.first(where: { $0.id == id }) {
                 Task {
-                    await viewModel.toggleFavoriteStatus(for: applicant)
+                    await viewModel.deleteApplicant(applicant: applicant)
                 }
             }
         }

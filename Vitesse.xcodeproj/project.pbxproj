@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */; };
 		AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE50F5D72C738F6300C67C4A /* VitesseApp.swift */; };
 		AE50F5DC2C738F6500C67C4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE50F5DB2C738F6500C67C4A /* Assets.xcassets */; };
 		AE50F5DF2C738F6500C67C4A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE50F5DE2C738F6500C67C4A /* Preview Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModel.swift; sourceTree = "<group>"; };
 		AE50F5D42C738F6300C67C4A /* Vitesse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vitesse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE50F5D72C738F6300C67C4A /* VitesseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseApp.swift; sourceTree = "<group>"; };
 		AE50F5DB2C738F6500C67C4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,14 +87,14 @@
 		AE50F5D62C738F6300C67C4A /* Vitesse */ = {
 			isa = PBXGroup;
 			children = (
+				AE50F5DB2C738F6500C67C4A /* Assets.xcassets */,
+				AE50F5D72C738F6300C67C4A /* VitesseApp.swift */,
 				AE50F5E92C73905200C67C4A /* Managers */,
-				AE50F5E82C73904900C67C4A /* Services */,
 				AE50F5E72C73904400C67C4A /* Models */,
+				AE50F5DD2C738F6500C67C4A /* Preview Content */,
+				AE50F5E82C73904900C67C4A /* Services */,
 				AE50F5E62C73901700C67C4A /* ViewModels */,
 				AE50F5E52C738FED00C67C4A /* Views */,
-				AE50F5D72C738F6300C67C4A /* VitesseApp.swift */,
-				AE50F5DB2C738F6500C67C4A /* Assets.xcassets */,
-				AE50F5DD2C738F6500C67C4A /* Preview Content */,
 			);
 			path = Vitesse;
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 				AE50F5EC2C7391C900C67C4A /* LoginViewModel.swift */,
 				AE50F5F22C73B8F400C67C4A /* RegisterViewModel.swift */,
 				AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */,
+				AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				AE50F6012C7617AF00C67C4A /* RegisterRequest.swift in Sources */,
 				AE50F5F32C73B8F400C67C4A /* RegisterViewModel.swift in Sources */,
 				AE50F5F12C73B8B200C67C4A /* RegisterView.swift in Sources */,
+				AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */,
 				AE50F5F52C74F51D00C67C4A /* NetworkManager.swift in Sources */,
 				AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */,
 				AE7B603E2C85EBF100D17519 /* ApplicantDetailView.swift in Sources */,

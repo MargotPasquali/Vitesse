@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ApplicantListRowView: View {
     var applicant: ApplicantDetail
+    var toggleFavorite: () -> Void // Ajoutez une fonction de bascule du favori
 
     var body: some View {
         HStack {
@@ -19,9 +20,10 @@ struct ApplicantListRowView: View {
                 .foregroundColor(.gray)
             
             Spacer()
-            IsFavoriteView(isFavorite: applicant.isFavorite)
+
+            // Étoile cliquable pour basculer le statut de favori
+            IsFavoriteView(isFavorite: applicant.isFavorite, toggleFavorite: toggleFavorite)
         }
-//        .padding() // Régler pour augmenter l'espacement
     }
 }
 
@@ -35,5 +37,5 @@ struct ApplicantListRowView: View {
         linkedinURL: "https://linkedin.com/in/johndoe",
         note: "Great candidate",
         isFavorite: true
-    ))
+    ), toggleFavorite: {})
 }

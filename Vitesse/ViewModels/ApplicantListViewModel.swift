@@ -61,38 +61,25 @@ class ApplicantListViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Mark Applicant as Favorite
-
-        func markApplicantAsFavorite(applicant: ApplicantDetail) async {
-            do {
-                try await applicantService.putCandidateAsFavorite(applicant: applicant)
-                Task { @MainActor in
-                    if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
-                        applicants[index].isFavorite = true
-                    }
-                }
-                print("Marked applicant with ID: \(applicant.id) as favorite")
-            } catch {
-                Task { @MainActor in
-                    print("Error marking applicant as favorite: \(error.localizedDescription)")
-                }
-            }
-        }
-
-    // MARK: - Toggle Favorite
+    // MARK: - Toggle Favorite Status
 
     func toggleFavoriteStatus(for applicant: ApplicantDetail) async {
-            do {
-                try await applicantService.putCandidateAsFavorite(applicant: applicant)
-                Task { @MainActor in
-                    if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
-                        applicants[index].isFavorite.toggle()
-                    }
-                }
-            } catch {
-                Task { @MainActor in
-                    print("Error toggling favorite status: \(error.localizedDescription)")
+        do {
+            // Appel à l'API pour marquer ou démarquer le candidat comme favori
+            try await applicantService.putCandidateAsFavorite(applicant: applicant)
+            
+            // Mise à jour de l'état local
+            Task { @MainActor in
+                if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
+                    applicants[index].isFavorite.toggle()
                 }
             }
+            print("Toggled favorite status for applicant with ID: \(applicant.id)")
+        } catch {
+            Task { @MainActor in
+                print("Error toggling favorite status: \(error.localizedDescription)")
+            }
         }
+    }
+
 }

@@ -9,17 +9,17 @@ import SwiftUI
 
 struct IsFavoriteView: View {
     let isFavorite: Bool
+    var toggleFavorite: () -> Void
+    
     var body: some View {
-        if isFavorite {
-            Image(systemName: "star.fill")
-                .foregroundColor(.yellow) 
-        } else {
-            Image(systemName: "star")
-                .foregroundColor(.gray)
-        }
+        Image(systemName: isFavorite ? "star.fill" : "star")
+            .foregroundColor(isFavorite ? .yellow : .gray)
+            .onTapGesture {
+                toggleFavorite()
+            }
     }
 }
 
 #Preview {
-    IsFavoriteView(isFavorite: true)
+    IsFavoriteView(isFavorite: true) {}
 }
