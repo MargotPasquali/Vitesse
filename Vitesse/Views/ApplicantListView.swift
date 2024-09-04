@@ -10,35 +10,48 @@ import SwiftUI
 struct ApplicantListView: View {
     @ObservedObject var viewModel: ApplicantListViewModel
     @State private var searchText = ""
-    @Environment(\.editMode) var editMode // Accès à l'EditMode via @Environment
+    @Environment(\.editMode) var editMode
     @State private var selectedApplicants: Set<UUID> = []
+    @State private var showFavoritesOnly = false
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(searchResults, id: \.id) { applicant in
-                    if editMode?.wrappedValue == .active {
-                        HStack {
+                ForEach(filteredResults, id: \.id) { applicant in
+                    HStack {
+                        if editMode?.wrappedValue == .active {
                             Image(systemName: selectedApplicants.contains(applicant.id) ? "checkmark.circle.fill" : "circle")
                                 .onTapGesture {
                                     toggleSelection(for: applicant.id)
                                 }
-                            ApplicantListRowView(applicant: applicant)
                         }
-                    } else {
+
                         NavigationLink(destination: ApplicantDetailView(applicant: applicant)) {
                             ApplicantListRowView(applicant: applicant)
                         }
-                        .buttonStyle(PlainButtonStyle()) // Faciliter le clic
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .onDelete(perform: delete) // Activation de la suppression
             }
             .navigationTitle("Candidates")
             .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if editMode?.wrappedValue == .active && !selectedApplicants.isEmpty {
+                        Button(action: toggleFavoriteStatus) {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                        }
+                    } else {
+                        Button(action: {
+                            showFavoritesOnly.toggle()
+                        }) {
+                            Image(systemName: showFavoritesOnly ? "star.fill" : "star")
+                        }
+                    }
                 }
             }
             .onAppear {
@@ -47,6 +60,14 @@ struct ApplicantListView: View {
                 }
             }
         }
+    }
+
+    private var filteredResults: [ApplicantDetail] {
+        let results = searchResults
+        if showFavoritesOnly {
+            return results.filter { $0.isFavorite }
+        }
+        return results
     }
 
     private var searchResults: [ApplicantDetail] {
@@ -68,14 +89,15 @@ struct ApplicantListView: View {
         }
     }
 
-    private func delete(at offsets: IndexSet) {
-        if editMode?.wrappedValue == .active {
-            for index in offsets {
-                let applicant = searchResults[index]
-                selectedApplicants.remove(applicant.id)
+    private func toggleFavoriteStatus() {
+        for id in selectedApplicants {
+            if let applicant = viewModel.applicants.first(where: { $0.id == id }) {
+                Task {
+                    await viewModel.toggleFavoriteStatus(for: applicant)
+                }
             }
         }
-        viewModel.applicants.remove(atOffsets: offsets)
+        selectedApplicants.removeAll()
     }
 }
 

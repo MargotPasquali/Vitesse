@@ -44,4 +44,55 @@ class ApplicantListViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Delete Applicant
+
+    func deleteApplicant(applicant: ApplicantDetail) async {
+        do {
+            try await applicantService.deleteCandidate(applicant: applicant)
+            Task { @MainActor in
+                applicants.removeAll { $0.id == applicant.id }
+            }
+            print("Deleted applicant with ID: \(applicant.id)")
+        } catch {
+            Task { @MainActor in
+                print("Error deleting applicant: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    // MARK: - Mark Applicant as Favorite
+
+        func markApplicantAsFavorite(applicant: ApplicantDetail) async {
+            do {
+                try await applicantService.putCandidateAsFavorite(applicant: applicant)
+                Task { @MainActor in
+                    if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
+                        applicants[index].isFavorite = true
+                    }
+                }
+                print("Marked applicant with ID: \(applicant.id) as favorite")
+            } catch {
+                Task { @MainActor in
+                    print("Error marking applicant as favorite: \(error.localizedDescription)")
+                }
+            }
+        }
+
+    // MARK: - Toggle Favorite
+
+    func toggleFavoriteStatus(for applicant: ApplicantDetail) async {
+            do {
+                try await applicantService.putCandidateAsFavorite(applicant: applicant)
+                Task { @MainActor in
+                    if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
+                        applicants[index].isFavorite.toggle()
+                    }
+                }
+            } catch {
+                Task { @MainActor in
+                    print("Error toggling favorite status: \(error.localizedDescription)")
+                }
+            }
+        }
 }
