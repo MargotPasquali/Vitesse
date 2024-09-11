@@ -16,7 +16,7 @@ class ApplicantListViewModel: ObservableObject {
     @Published var applicants: [ApplicantDetail] = []
     @Published var email: String = ""
     @Published var password: String = ""
-
+    
     // MARK: - Dependencies
     
     var applicantService: ApplicantService
@@ -36,9 +36,9 @@ class ApplicantListViewModel: ObservableObject {
         do {
             let applicantList = try await applicantService.getAllCandidates()
             Task { @MainActor in
+                print("Fetched applicantList: \(applicantList)") // Affiche les données reçues
                 applicants = applicantList
             }
-            print("Fetched applicants: \(self.applicants.count) candidates found")
         } catch {
             Task { @MainActor in
                 print("Error fetching applicant detail list: \(error.localizedDescription)")
@@ -46,22 +46,23 @@ class ApplicantListViewModel: ObservableObject {
             }
         }
     }
+
     
     // MARK: - Toggle Favorite Status
-
+    
     func toggleFavoriteStatus(for applicant: ApplicantDetail) {
         // Trouver l'index du candidat dans la liste
         if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
             // Inverser la valeur de isFavorite localement
             applicants[index].isFavorite.toggle()
-
+            
             print("Favorite status toggled for applicant with ID: \(applicant.id) to \(applicants[index].isFavorite)")
         }
     }
-
+    
     
     // MARK: - Delete Applicant
-
+    
     func deleteApplicant(applicant: ApplicantDetail) async {
         do {
             try await applicantService.deleteCandidate(applicant: applicant)
@@ -75,5 +76,5 @@ class ApplicantListViewModel: ObservableObject {
             }
         }
     }
-
+    
 }

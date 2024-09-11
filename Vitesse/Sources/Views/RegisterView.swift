@@ -79,19 +79,21 @@ struct RegisterView: View {
                 
                 // Create Button
                 Button(action: {
-                    if viewModel.isFormValid() {
-                        let registrationSuccess = viewModel.register()
-                        
-                        if registrationSuccess {
-                            alertMessage = "Your account has been created successfully!"
-                            showAlert = true
-                            navigateToLogin = true
+                    Task {
+                        if await viewModel.isFormValid() {
+                            let registrationSuccess = await viewModel.register()
+                            
+                            if registrationSuccess {
+                                alertMessage = "Your account has been created successfully!"
+                                showAlert = true
+                                navigateToLogin = true
+                            } else {
+                                alertMessage = viewModel.errorMessage ?? "Account creation failed. Please try again."
+                                showAlert = true
+                            }
                         } else {
-                            alertMessage = "Account creation failed. Please try again."
-                            showAlert = true
+                            viewModel.errorMessage = "Please fill in all fields correctly."
                         }
-                    } else {
-                        viewModel.errorMessage = "Please fill in all fields correctly."
                     }
                 }) {
                     Text("Create")
@@ -101,7 +103,7 @@ struct RegisterView: View {
                         .background(viewModel.isFormValid() ? Color.black : Color.gray)
                         .cornerRadius(8)
                 }
-                .disabled(!viewModel.isFormValid()) // Disable the button if the form is not valid
+                .disabled(!viewModel.isFormValid())
                 .alert(isPresented: $showAlert) {
                     if navigateToLogin {
                         return Alert(

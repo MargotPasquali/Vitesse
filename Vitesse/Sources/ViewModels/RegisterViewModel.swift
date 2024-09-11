@@ -9,22 +9,20 @@ import Foundation
 import VitesseNetworking
 
 class RegisterViewModel: ObservableObject {
-    // MARK: - Enums
-    
-    /// Enumération des erreurs spécifiques au `RegisterViewModel`.
-    enum registerViewModelError: Error {
-        case authenticationFailed
-        case missingAccountDetails
-    }
-    
     // MARK: - Published Properties
+    @Published var firstName: String = "Francine"
+    @Published var lastName: String = "Gentil"
+    @Published var email: String = "francinegentil@hotmail.fr"
+    @Published var password: String = "francinegentil33"
+    @Published var confirmPassword: String = "francinegentil33"
+    @Published var errorMessage: String?
+
+    private var registerService: RegisterService
     
-    var firstName: String = ""
-    var lastName: String = ""
-    var email: String = ""
-    var password: String = ""
-    var confirmPassword: String = ""
-    var errorMessage: String?
+    // MARK: - Init
+    init(registerService: RegisterService = RemoteRegisterService()) {
+        self.registerService = registerService
+    }
     
     // Method to check if the form is valid
     func isFormValid() -> Bool {
@@ -35,33 +33,48 @@ class RegisterViewModel: ObservableObject {
         password == confirmPassword
     }
     
+    // Method to handle registration (calls the API)
+    func register() async -> Bool {
+        do {
+            // Appel à l'API pour créer le compte
+            try await registerService.createNewAccount(email: email, password: password, firstName: firstName, lastName: lastName)
+            
+            Task { @MainActor in
+                // Mise à jour de l'interface utilisateur après succès
+                errorMessage = nil // Pas d'erreur
+            }
+            
+            return true  // Succès
+        } catch {
+            Task { @MainActor in
+                // Gestion des erreurs spécifiques sur le thread principal
+                if let registerError = error as? RegisterServiceError {
+                    switch registerError {
+                    case .invalidCredentials:
+                        errorMessage = "Invalid credentials. Please check your details."
+                    case .invalidResponse:
+                        errorMessage = "Invalid response from server."
+                    case .networkError(let networkError):
+                        errorMessage = "Network error: \(networkError.localizedDescription)"
+                    default:
+                        errorMessage = "An unknown error occurred."
+                    }
+                } else {
+                    errorMessage = "An error occurred: \(error.localizedDescription)"
+                }
+            }
+            return false  // Échec
+        }
+    }
+
+    
     // Simple email validation function
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let range = NSRange(location: 0, length: email.utf16.count)
         let regex = try! NSRegularExpression(pattern: emailRegEx)
         
-        // Vérifie si l'email correspond au regex et n'a pas de points consécutifs
         let match = regex.firstMatch(in: email, options: [], range: range)
-        
         return match != nil && !email.contains("..")
     }
-    
-    // Method to handle registration
-    func register() -> Bool {
-        // Logic to create a user account, e.g., calling an API or saving to a database.
-        // Return true if successful, otherwise false.
-        
-        // For the sake of example, let's assume the registration always succeeds.
-        // Replace this with actual logic.
-        let registrationSuccessful = true
-        
-        if registrationSuccessful {
-            return true
-        } else {
-            errorMessage = "An error occurred during account creation."
-            return false
-        }
-    }
-    
 }

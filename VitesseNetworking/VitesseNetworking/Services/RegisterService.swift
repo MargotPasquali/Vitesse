@@ -10,6 +10,7 @@ import VitesseModels
 
 public protocol RegisterService {
     var networkManager: NetworkManagerProtocol { get }
+    func createNewAccount(email: String, password: String, firstName: String, lastName: String) async throws
     init(networkManager: NetworkManagerProtocol)
 }
 
@@ -33,8 +34,8 @@ public final class RemoteRegisterService: RegisterService {
         self.networkManager = networkManager
     }
     
-    public func createNewAccount(username: String, password: String, firstName: String, lastName: String) async throws {
-        guard !username.isEmpty, !password.isEmpty, !firstName.isEmpty, !lastName.isEmpty else {
+    public func createNewAccount(email: String, password: String, firstName: String, lastName: String) async throws {
+        guard !email.isEmpty, !password.isEmpty, !firstName.isEmpty, !lastName.isEmpty else {
             throw RegisterServiceError.invalidCredentials
         }
         
@@ -42,19 +43,28 @@ public final class RemoteRegisterService: RegisterService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let credentials = RegisterRequest(username: username, password: password, firstName: firstName, lastName: lastName)
+        let credentials = RegisterRequest(email: email, password: password, firstName: firstName, lastName: lastName)
         request.httpBody = try JSONEncoder().encode(credentials)
         
         do {
             let (data, response) = try await networkManager.data(for: request, authenticatedRequest: false)
             
-            guard response.statusCode == 200 else {
+            // Accepter tout code de statut entre 200 et 299 comme succès
+            guard (200...299).contains(response.statusCode) else {
                 throw RegisterServiceError.invalidResponse
             }
             
-            print("Account created successfully: \(String(data: data, encoding: .utf8) ?? "")")
+            // Si le corps de la réponse est vide, cela peut être normal
+            if let data = String(data: data, encoding: .utf8), !data.isEmpty {
+                print("Account created successfully: \(data)")
+            } else {
+                print("Account created successfully with no response body.")
+            }
+            
         } catch {
             throw RegisterServiceError.networkError(error)
         }
     }
+
+
 }

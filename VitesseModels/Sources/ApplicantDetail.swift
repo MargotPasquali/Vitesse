@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 public class ApplicantDetail: Identifiable, Codable {
     public var id: UUID
     public var firstName: String
@@ -61,7 +59,10 @@ public class ApplicantDetail: Identifiable, Codable {
         linkedinURL = try container.decodeIfPresent(String.self, forKey: .linkedinURL)
         note = try container.decodeIfPresent(String.self, forKey: .note)
         isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
+
+        print("Successfully decoded: \(firstName) \(lastName)")
     }
+
 
     // MARK: - CodingKeys
     private enum CodingKeys: String, CodingKey {

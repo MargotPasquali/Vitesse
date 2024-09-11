@@ -19,8 +19,8 @@ class LoginViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var email: String = "admin@vitesse.com"
-    @Published var password: String = "test123"
+    @Published var email: String = "francinegentil@hotmail.fr"
+    @Published var password: String = "francinegentil33"
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     

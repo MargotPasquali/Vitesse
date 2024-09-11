@@ -14,9 +14,9 @@ struct ApplicantListView: View {
     @State private var showFavoritesOnly = false
     @Environment(\.editMode) private var editMode
     @State private var selectedApplicants: Set<UUID> = []  // Stocke les candidats sélectionnés
-
+    
     let isAdmin: Bool = true
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -35,16 +35,13 @@ struct ApplicantListView: View {
                             applicant: .constant(applicant)
                         )) {
                             ApplicantListRowView(applicant: applicant) {
-                            
-                                     viewModel.toggleFavoriteStatus(for: applicant)
-                            
+                                
+                                viewModel.toggleFavoriteStatus(for: applicant)
+                                
                             }
-//                            .buttonStyle(PlainButtonStyle())
                         }
                     }
-                    // Appliquer une couleur de fond différente pour les candidats sélectionnés
-//                    .listRowBackground(selectedApplicants.contains(applicant.id) ? Color.blue.opacity(0.1) : Color(.systemBackground))
-
+                    
                 }
             }
             .navigationTitle("Candidates")
@@ -75,28 +72,34 @@ struct ApplicantListView: View {
             }
         }
     }
-
-    // Filtrage des résultats en fonction des favoris
+    
     private var filteredResults: [ApplicantDetail] {
-        var results = searchResults
+        let results = searchResults
         if showFavoritesOnly {
-            results = results.filter { $0.isFavorite }
+            let filteredFavorites = results.filter { $0.isFavorite }
+            print("Filtering to show only favorites: \(filteredFavorites.count) found")
+            return filteredFavorites
         }
+        print("Showing all applicants: \(results.count) applicants found")
         return results
     }
 
-    // Recherche des candidats
     private var searchResults: [ApplicantDetail] {
         if searchText.isEmpty {
+            print("Search text is empty, showing all applicants")
             return viewModel.applicants
         } else {
-            return viewModel.applicants.filter { applicant in
+            let filteredSearch = viewModel.applicants.filter { applicant in
                 applicant.firstName.lowercased().contains(searchText.lowercased()) ||
                 applicant.lastName.lowercased().contains(searchText.lowercased())
             }
+            print("Found \(filteredSearch.count) applicants matching search text")
+            return filteredSearch
         }
     }
 
+
+    
     // Basculer la sélection des candidats en mode édition
     private func toggleSelection(for id: UUID) {
         if selectedApplicants.contains(id) {
@@ -105,7 +108,7 @@ struct ApplicantListView: View {
             selectedApplicants.insert(id)
         }
     }
-
+    
     // Suppression des candidats sélectionnés en mode d'édition
     private func deleteSelectedApplicants() {
         let applicantsToDelete = viewModel.applicants.filter { selectedApplicants.contains($0.id) }

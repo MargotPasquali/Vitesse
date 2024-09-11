@@ -28,16 +28,16 @@ struct ApplicantDetailView: View {
                 }
                 Spacer()
 
-                // Basculer l'état favori uniquement en mode d'édition et si l'utilisateur est admin
-                if viewModel.isAdmin && isEditing {
-                    IsFavoriteView(isFavorite: viewModel.applicant.isFavorite) {
-                        Task {
-                            await viewModel.toggleFavorite() // Appel à la méthode toggleFavorite
+                // Afficher l'étoile une seule fois avec les bonnes conditions
+                if viewModel.isAdmin {
+                    // Rendre l'étoile cliquable uniquement en mode édition et si l'utilisateur est admin
+                    IsFavoriteView(isFavorite: applicant.isFavorite) {
+                        if isEditing {
+                            toggleFavorite() // Appeler la fonction uniquement si l'édition est activée
                         }
                     }
+                    .disabled(!isEditing) // Désactiver en mode normal
                 }
-                IsFavoriteView(isFavorite: applicant.isFavorite, toggleFavorite: toggleFavorite)
-
             }
 
             HStack {
@@ -57,16 +57,15 @@ struct ApplicantDetailView: View {
                 Text("Phone")
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                if let phone = viewModel.applicant.phone {
-                    if isEditing {
-                        TextField("Phone", text: Binding($viewModel.applicant.phone, default: ""))
-                    } else {
-                        Text("\(phone)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
+                
+                if isEditing {
+                    // Utiliser un Binding avec une valeur par défaut si phone est nil
+                    TextField("Phone", text: Binding(
+                        get: { viewModel.applicant.phone ?? "" },
+                        set: { viewModel.applicant.phone = $0 }
+                    ))
                 } else {
-                    Text("No phone available")
+                    Text(viewModel.applicant.phone ?? "No phone available")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -93,16 +92,6 @@ struct ApplicantDetailView: View {
                 }
             }
         }
-    }
-}
-
-extension Binding {
-    // Binding pour gérer le nil
-    init(_ source: Binding<Value?>, default: Value) {
-        self.init(
-            get: { source.wrappedValue ?? `default` },
-            set: { source.wrappedValue = $0 }
-        )
     }
 }
 

@@ -75,7 +75,8 @@ public final class NetworkManager: NetworkManagerProtocol {
             }
             
             switch response.statusCode {
-            case 200:
+            case 200...299:
+                // Success case for codes 200 to 299, including 201
                 return (data, response)
             case 401:
                 print("Unauthorized (401) response received")
