@@ -12,7 +12,7 @@ public protocol ApplicantService {
     var networkManager: NetworkManagerProtocol { get }
     func getAllCandidates() async throws -> [ApplicantDetail]
     func postNewCandidate(email: String, note: String?, linkedinURL: String?, firstName: String, lastName: String, phone: String) async throws -> [ApplicantDetail]
-    func deleteCandidate(applicant: ApplicantDetail) async throws
+    func deleteCandidate(applicant: ApplicantDetail) async throws -> Void
     func putCandidateAsFavorite(applicant: ApplicantDetail) async throws
     func updateCandidateDetails(applicant: ApplicantDetail) async throws
 }

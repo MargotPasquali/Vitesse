@@ -9,12 +9,18 @@ import SwiftUI
 import VitesseModels
 
 struct ApplicantDetailView: View {
+
     @ObservedObject var viewModel: ApplicantDetailViewModel
+
     @State private var isEditing = false // État pour gérer le mode d'édition
+
     var toggleFavorite: () -> Void // Fonction de bascule du favori
 
     @Binding var applicant: ApplicantDetail
+
     @State private var favoriteChanged = false // État local pour déclencher l'animation
+
+    // MARK: - View
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {

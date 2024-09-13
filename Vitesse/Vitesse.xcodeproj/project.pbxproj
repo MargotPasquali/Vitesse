@@ -24,6 +24,7 @@
 		AE7B60432C85F46600D17519 /* ApplicantListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */; };
 		AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */; };
 		AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */; };
+		ED3DD4AA2C946D9700C1C798 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3DD4A92C946D9700C1C798 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,7 @@
 		AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListRowView.swift; sourceTree = "<group>"; };
 		AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListView.swift; sourceTree = "<group>"; };
 		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
+		ED3DD4A92C946D9700C1C798 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			children = (
 				AE7B60412C85EE9A00D17519 /* Utilities */,
 				AE50F5EA2C73913600C67C4A /* LoginView.swift */,
+				ED3DD4A92C946D9700C1C798 /* MainView.swift */,
 				AE50F5F02C73B8B200C67C4A /* RegisterView.swift */,
 				AEDF44F92C7CCF2800435314 /* ApplicantListView.swift */,
 				AE7B603D2C85EBF100D17519 /* ApplicantDetailView.swift */,
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE50F5EB2C73913600C67C4A /* LoginView.swift in Sources */,
+				ED3DD4AA2C946D9700C1C798 /* MainView.swift in Sources */,
 				AE50F5F32C73B8F400C67C4A /* RegisterViewModel.swift in Sources */,
 				AE50F5F12C73B8B200C67C4A /* RegisterView.swift in Sources */,
 				AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */,

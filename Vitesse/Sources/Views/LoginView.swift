@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct LoginView: View {
-    
+
+    @State
+    private(set) var isAuthenticated: Bool
+
     @State private var username: String = ""
     @State private var password: String = ""
     
     @ObservedObject var viewModel: LoginViewModel
     @State private var showDestination = false
-    
+
+    init(viewModel: LoginViewModel, isAuthenticated: Bool = false) {
+        self.viewModel = viewModel
+        self.isAuthenticated = isAuthenticated
+    }
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) { // Ajustez l'espacement ici pour réduire l'espace
@@ -101,6 +109,6 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView(viewModel: LoginViewModel())
-}
+//#Preview {
+//    LoginView(viewModel: LoginViewModel())
+//}

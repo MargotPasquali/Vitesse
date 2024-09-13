@@ -80,7 +80,7 @@ struct RegisterView: View {
                 // Create Button
                 Button(action: {
                     Task {
-                        if await viewModel.isFormValid() {
+                        if viewModel.isFormValid() {
                             let registrationSuccess = await viewModel.register()
                             
                             if registrationSuccess {

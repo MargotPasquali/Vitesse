@@ -26,11 +26,7 @@ class RegisterViewModel: ObservableObject {
     
     // Method to check if the form is valid
     func isFormValid() -> Bool {
-        return !firstName.isEmpty &&
-        !lastName.isEmpty &&
-        isValidEmail(email) &&
-        !password.isEmpty &&
-        password == confirmPassword
+        !firstName.isEmpty && !lastName.isEmpty && isValidEmail(email) && !password.isEmpty && password == confirmPassword
     }
     
     // Method to handle registration (calls the API)

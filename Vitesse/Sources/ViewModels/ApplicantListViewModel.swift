@@ -8,28 +8,68 @@
 import Foundation
 import VitesseModels
 import VitesseNetworking
+import Combine
 
 class ApplicantListViewModel: ObservableObject {
     
     // MARK: - Published Properties
     
-    @Published var applicants: [ApplicantDetail] = []
+    private var applicants: [ApplicantDetail] = [] {
+        didSet {
+            filterApplicants(searchTerms: searchTerms)
+        }
+    }
+
+    @Published
+    var searchTerms: String = ""
+
     @Published var email: String = ""
     @Published var password: String = ""
-    
+
+    @Published
+    var showFavoritesOnly = false
+
+    @Published
+    var filteredApplicants = [ApplicantDetail]()
+
+    @Published
+    var selectedApplicants = Set<UUID>()
+
     // MARK: - Dependencies
     
     var applicantService: ApplicantService
     var authenticationService: AuthenticationService
-    
+
+    private var disposables = Set<AnyCancellable>()
+
     // MARK: - Init
     
-    init(authenticationService: AuthenticationService = RemoteAuthenticationService(),
-         applicantService: ApplicantService = RemoteApplicantService()) {
+    init(
+        authenticationService: AuthenticationService = RemoteAuthenticationService(),
+         applicantService: ApplicantService = RemoteApplicantService()
+    ) {
         self.authenticationService = authenticationService
         self.applicantService = applicantService
+
+        $searchTerms
+            .sink { searchTerms in
+                self.filterApplicants(searchTerms: searchTerms)
+            }
+            .store(in: &disposables)
     }
-    
+
+    // MARK: - Functions
+
+    private func filterApplicants(searchTerms: String) {
+        if !searchTerms.isEmpty {
+            filteredApplicants = applicants.filter { applicant in
+                applicant.firstName.lowercased().contains(searchTerms.lowercased()) || applicant.lastName.lowercased().contains(searchTerms.lowercased())
+            }
+        } else {
+            filteredApplicants = applicants
+        }
+    }
+
     // MARK: - Fetch Applicant Details
     
     func fetchApplicantDetailList() async {
@@ -49,9 +89,6 @@ class ApplicantListViewModel: ObservableObject {
         }
     }
 
-
-
-    
     // MARK: - Toggle Favorite Status
     
     func toggleFavoriteStatus(for applicant: ApplicantDetail) {
@@ -66,19 +103,28 @@ class ApplicantListViewModel: ObservableObject {
     
     
     // MARK: - Delete Applicant
-    
-    func deleteApplicant(applicant: ApplicantDetail) async {
+
+    func deleteSelectedApplicants() async {
+        let applicantsToDelete = applicants.filter { applicant in
+            selectedApplicants.contains { $0 == applicant.id  }
+        }
+
         do {
-            try await applicantService.deleteCandidate(applicant: applicant)
-            Task { @MainActor in
-                applicants.removeAll { $0.id == applicant.id }
+            try await withThrowingTaskGroup(of: Void.self) { taskGroup in
+                applicantsToDelete.forEach { applicant in
+                    taskGroup.addTask {
+                        try await self.applicantService.deleteCandidate(applicant: applicant)
+                    }
+                }
+
+                try await taskGroup.waitForAll()
             }
-            print("Deleted applicant with ID: \(applicant.id)")
+
+            await fetchApplicantDetailList()
         } catch {
             Task { @MainActor in
                 print("Error deleting applicant: \(error.localizedDescription)")
             }
         }
     }
-    
 }
