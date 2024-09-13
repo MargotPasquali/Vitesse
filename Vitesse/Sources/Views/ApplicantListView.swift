@@ -20,9 +20,9 @@ struct ApplicantListView: View {
     var body: some View {
         NavigationStack {
             List {
+                // Utilisation des filteredResults pour afficher les candidats
                 ForEach(filteredResults, id: \.id) { applicant in
                     HStack {
-                        // Affiche une case à cocher en mode d'édition
                         if editMode?.wrappedValue.isEditing == true {
                             Image(systemName: selectedApplicants.contains(applicant.id) ? "checkmark.circle.fill" : "circle")
                                 .onTapGesture {
@@ -35,13 +35,10 @@ struct ApplicantListView: View {
                             applicant: .constant(applicant)
                         )) {
                             ApplicantListRowView(applicant: applicant) {
-                                
                                 viewModel.toggleFavoriteStatus(for: applicant)
-                                
                             }
                         }
                     }
-                    
                 }
             }
             .navigationTitle("Candidates")
@@ -71,8 +68,12 @@ struct ApplicantListView: View {
                 }
             }
         }
+        .onChange(of: viewModel.applicants) { newApplicants in
+            print("Applicants in ViewModel have changed. Now have \(newApplicants.count) applicants.")
+        }
     }
     
+    // Filtrage des résultats
     private var filteredResults: [ApplicantDetail] {
         let results = searchResults
         if showFavoritesOnly {
@@ -87,6 +88,7 @@ struct ApplicantListView: View {
     private var searchResults: [ApplicantDetail] {
         if searchText.isEmpty {
             print("Search text is empty, showing all applicants")
+            print("Applicants in ViewModel: \(viewModel.applicants.count)") // Ajoute ce log pour voir les candidats stockés dans le ViewModel
             return viewModel.applicants
         } else {
             let filteredSearch = viewModel.applicants.filter { applicant in
@@ -98,9 +100,7 @@ struct ApplicantListView: View {
         }
     }
 
-
-    
-    // Basculer la sélection des candidats en mode édition
+    // Basculer la sélection des candidats
     private func toggleSelection(for id: UUID) {
         if selectedApplicants.contains(id) {
             selectedApplicants.remove(id)
@@ -117,7 +117,6 @@ struct ApplicantListView: View {
                 await viewModel.deleteApplicant(applicant: applicant)
             }
         }
-        // Réinitialiser la sélection après suppression
         selectedApplicants.removeAll()
     }
 }
@@ -125,4 +124,3 @@ struct ApplicantListView: View {
 #Preview {
     ApplicantListView(viewModel: ApplicantListViewModel())
 }
-

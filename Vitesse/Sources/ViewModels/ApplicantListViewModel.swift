@@ -35,17 +35,21 @@ class ApplicantListViewModel: ObservableObject {
     func fetchApplicantDetailList() async {
         do {
             let applicantList = try await applicantService.getAllCandidates()
-            Task { @MainActor in
-                print("Fetched applicantList: \(applicantList)") // Affiche les données reçues
-                applicants = applicantList
+            
+            await MainActor.run {
+                print("Fetched applicants from API: \(applicantList.count) applicants") // Vérifie la quantité d'applicants récupérés
+                self.applicants = applicantList
+                print("Applicants stored in ViewModel: \(self.applicants.count)") // Vérifie si les données sont bien assignées
             }
         } catch {
-            Task { @MainActor in
+            await MainActor.run {
                 print("Error fetching applicant detail list: \(error.localizedDescription)")
-                applicants = []
+                self.applicants = []
             }
         }
     }
+
+
 
     
     // MARK: - Toggle Favorite Status

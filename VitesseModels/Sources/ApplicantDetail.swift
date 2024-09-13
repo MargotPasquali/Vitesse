@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ApplicantDetail: Identifiable, Codable {
+public class ApplicantDetail: Identifiable, Codable, Equatable {
     public var id: UUID
     public var firstName: String
     public var lastName: String
@@ -63,7 +63,18 @@ public class ApplicantDetail: Identifiable, Codable {
         print("Successfully decoded: \(firstName) \(lastName)")
     }
 
-
+    // MARK: - Conformance to Equatable
+        public static func ==(lhs: ApplicantDetail, rhs: ApplicantDetail) -> Bool {
+            return lhs.id == rhs.id &&
+                   lhs.firstName == rhs.firstName &&
+                   lhs.lastName == rhs.lastName &&
+                   lhs.email == rhs.email &&
+                   lhs.phone == rhs.phone &&
+                   lhs.linkedinURL == rhs.linkedinURL &&
+                   lhs.note == rhs.note &&
+                   lhs.isFavorite == rhs.isFavorite
+        }
+    
     // MARK: - CodingKeys
     private enum CodingKeys: String, CodingKey {
         case id, firstName, lastName, email, phone, linkedinURL, note, isFavorite

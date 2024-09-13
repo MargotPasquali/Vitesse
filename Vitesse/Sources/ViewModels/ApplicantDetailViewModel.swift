@@ -29,29 +29,47 @@ class ApplicantDetailViewModel: ObservableObject {
     }
     
     // MARK: - Toggle Favorite
-    
     func toggleFavorite() async {
-        guard isAdmin else { return } // Vérifiez si l'utilisateur est admin
         do {
+            // Appel API pour basculer le statut favori
             try await applicantService.putCandidateAsFavorite(applicant: applicant)
+            
+            // Une fois que l'API confirme le succès, basculez l'état localement
             Task { @MainActor in
-                self.applicant.isFavorite.toggle() // Mettre à jour l'état local
+                self.applicant.isFavorite.toggle()
+                print("Successfully toggled favorite status for applicant \(applicant.id)")
             }
-            print("Toggled favorite status for applicant \(applicant.id)")
         } catch {
             print("Error toggling favorite status: \(error.localizedDescription)")
         }
     }
+
+
+
+
     
-    // MARK: - Update Applicant Details
-    
+    @MainActor
     func updateApplicantDetails() async {
         guard isAdmin else { return } // Vérifiez si l'utilisateur est admin
+
         do {
-            try await applicantService.updateCandidateDetails(applicant: applicant)
-            print("Updated applicant details for applicant \(applicant.id)")
+            // Créer une copie du candidat sans `isFavorite`
+            var updatedApplicant = applicant
+            // Supprimer `isFavorite` en tant que champ envoyé dans la requête
+            // Ici, on doit exclure explicitement isFavorite de l'update
+            // En modifiant le modèle que tu envoies dans la requête PUT
+            // On ne change pas la valeur de `isFavorite` dans `updatedApplicant`, mais on ne l'inclut pas dans l'envoi
+
+            // Appel API pour mettre à jour les détails du candidat, sans changer le statut favori
+            try await applicantService.updateCandidateDetails(applicant: updatedApplicant)
+
+            print("Updated applicant details for applicant \(updatedApplicant.id)")
         } catch {
             print("Error updating applicant details: \(error.localizedDescription)")
         }
     }
+
+
+
+
 }
