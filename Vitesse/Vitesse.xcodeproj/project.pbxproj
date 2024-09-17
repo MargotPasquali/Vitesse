@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE1270C02C9889DC00E48262 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270BF2C9889DC00E48262 /* Color+Extensions.swift */; };
+		AE1270C42C9892D700E48262 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270C32C9892D700E48262 /* SplashScreenView.swift */; };
+		AE1270CA2C98965700E48262 /* FontsDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270C92C98965700E48262 /* FontsDebugView.swift */; };
+		AE1270CE2C98985400E48262 /* Allura-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1270CD2C98985400E48262 /* Allura-Regular.ttf */; };
+		AE1270D02C989C2600E48262 /* Outfit-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */; };
 		AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */; };
 		AE36CB042C89DDAF0038E4D5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; };
 		AE36CB052C89DDAF0038E4D5 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -42,6 +47,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AE1270BF2C9889DC00E48262 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		AE1270C32C9892D700E48262 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		AE1270C82C9894A800E48262 /* Vitesse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Vitesse-Info.plist"; sourceTree = "<group>"; };
+		AE1270C92C98965700E48262 /* FontsDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsDebugView.swift; sourceTree = "<group>"; };
+		AE1270CD2C98985400E48262 /* Allura-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Allura-Regular.ttf"; sourceTree = "<group>"; };
+		AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModel.swift; sourceTree = "<group>"; };
 		AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,9 +84,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE1270BE2C9889B800E48262 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AE1270BF2C9889DC00E48262 /* Color+Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		AE1270C52C9893B100E48262 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */,
+				AE1270CD2C98985400E48262 /* Allura-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		AE36CADB2C89D6410038E4D5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AE1270C82C9894A800E48262 /* Vitesse-Info.plist */,
+				AE1270C52C9893B100E48262 /* Fonts */,
+				AE1270BE2C9889B800E48262 /* Utils */,
 				AE50F5DD2C738F6500C67C4A /* Preview Content */,
 				AE50F5DB2C738F6500C67C4A /* Assets.xcassets */,
 			);
@@ -155,6 +186,8 @@
 			children = (
 				AE7B603F2C85EE9400D17519 /* isFavoriteView.swift */,
 				AE7B60422C85F46600D17519 /* ApplicantListRowView.swift */,
+				AE1270C32C9892D700E48262 /* SplashScreenView.swift */,
+				AE1270C92C98965700E48262 /* FontsDebugView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -218,7 +251,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1270CE2C98985400E48262 /* Allura-Regular.ttf in Resources */,
 				AE50F5DF2C738F6500C67C4A /* Preview Assets.xcassets in Resources */,
+				AE1270D02C989C2600E48262 /* Outfit-VariableFont_wght.ttf in Resources */,
 				AE50F5DC2C738F6500C67C4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,16 +266,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE50F5EB2C73913600C67C4A /* LoginView.swift in Sources */,
+				AE1270C42C9892D700E48262 /* SplashScreenView.swift in Sources */,
 				AE50F5F32C73B8F400C67C4A /* RegisterViewModel.swift in Sources */,
 				AE50F5F12C73B8B200C67C4A /* RegisterView.swift in Sources */,
 				AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */,
 				AE50F5D82C738F6300C67C4A /* VitesseApp.swift in Sources */,
 				AE7B603E2C85EBF100D17519 /* ApplicantDetailView.swift in Sources */,
+				AE1270CA2C98965700E48262 /* FontsDebugView.swift in Sources */,
 				AEDF44FA2C7CCF2800435314 /* ApplicantListView.swift in Sources */,
 				AE7B60402C85EE9400D17519 /* isFavoriteView.swift in Sources */,
 				AE50F5ED2C7391C900C67C4A /* LoginViewModel.swift in Sources */,
 				AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */,
 				AE7B60432C85F46600D17519 /* ApplicantListRowView.swift in Sources */,
+				AE1270C02C9889DC00E48262 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +415,7 @@
 				DEVELOPMENT_TEAM = FQJ5XK4959;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vitesse-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -406,6 +445,7 @@
 				DEVELOPMENT_TEAM = FQJ5XK4959;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Vitesse-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

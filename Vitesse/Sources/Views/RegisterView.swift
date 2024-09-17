@@ -23,11 +23,14 @@ struct RegisterView: View {
                     .frame(width: 100)
                 
                 Text("Register")
+                    .font(Font.custom("Outfit", size: 30))
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("First Name")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     TextField("", text: $viewModel.firstName)
                         .padding()
@@ -37,6 +40,8 @@ struct RegisterView: View {
                         .disableAutocorrection(true)
                     
                     Text("Last Name")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     TextField("", text: $viewModel.lastName)
                         .padding()
@@ -46,6 +51,8 @@ struct RegisterView: View {
                         .disableAutocorrection(true)
                     
                     Text("Email")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     TextField("", text: $viewModel.email)
                         .padding()
@@ -56,6 +63,8 @@ struct RegisterView: View {
                         .disableAutocorrection(true)
                     
                     Text("Password")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     SecureField("", text: $viewModel.password)
                         .padding()
@@ -63,6 +72,8 @@ struct RegisterView: View {
                         .cornerRadius(8)
                     
                     Text("Confirm Password")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     SecureField("", text: $viewModel.confirmPassword)
                         .padding()
@@ -102,6 +113,8 @@ struct RegisterView: View {
                         .padding()
                         .background(viewModel.isFormValid() ? Color.black : Color.gray)
                         .cornerRadius(8)
+                        .fontWeight(.bold)
+                        .font(Font.custom("Outfit", size: 20))
                 }
                 .disabled(!viewModel.isFormValid())
                 .alert(isPresented: $showAlert) {
@@ -131,6 +144,8 @@ struct RegisterView: View {
                 
             }
             .padding(.horizontal, 40)
+            .font(Font.custom("Outfit", size: 18))
+            .fontWeight(.light)
         }
         .onTapGesture {
             // Hide keyboard

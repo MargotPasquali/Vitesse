@@ -24,11 +24,14 @@ struct LoginView: View {
                     .frame(width: 250)
                 
                 Text("Login")
+                    .font(Font.custom("Outfit", size: 30))
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 
                 VStack(alignment: .leading, spacing: 12) { // Ajustez l'espacement interne ici
                     Text("Email/Username")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     
                     TextField("Adresse email", text: $viewModel.email)
@@ -40,6 +43,8 @@ struct LoginView: View {
                         .disableAutocorrection(true)
                     
                     Text("Password")
+                        .font(Font.custom("Outfit", size: 18))
+                        .fontWeight(.medium)
                         .font(.headline)
                     
                     SecureField("Mot de passe", text: $viewModel.password)
@@ -69,6 +74,8 @@ struct LoginView: View {
                 }) {
                     Text("Sign In")
                         .foregroundColor(.white)
+                        .font(Font.custom("Outfit", size: 20))
+                        .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.black)
@@ -79,6 +86,8 @@ struct LoginView: View {
                 NavigationLink(destination: RegisterView()) {
                     Text("Register")
                         .foregroundColor(.black)
+                        .font(Font.custom("Outfit", size: 20))
+                        .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.white)
@@ -94,12 +103,17 @@ struct LoginView: View {
                 }
             }
             .padding(.horizontal, 40)
+            .navigationBarBackButtonHidden(true)
+            .font(Font.custom("Outfit", size: 18))
+            .fontWeight(.regular)
+
         }
         .onTapGesture {
             // Hide keyboard
         }
     }
 }
+
 
 #Preview {
     LoginView(viewModel: LoginViewModel())

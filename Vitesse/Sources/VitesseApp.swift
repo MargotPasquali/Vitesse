@@ -9,9 +9,23 @@ import SwiftUI
 
 @main
 struct VitesseApp: App {
+    @State private var showSplashScreen = true
+
     var body: some Scene {
         WindowGroup {
-            LoginView(viewModel: LoginViewModel())
+            if showSplashScreen {
+                SplashScreenView()
+                    .onAppear {
+                        // Simule un délai de 3 secondes avant la transition vers la vue principale
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                showSplashScreen = false
+                            }
+                        }
+                    }
+            } else {
+                LoginView(viewModel: LoginViewModel())
+            }
         }
     }
 }

@@ -13,18 +13,30 @@ struct ApplicantListRowView: View {
     var toggleFavorite: () -> Void // Ajoutez une fonction de bascule du favori
 
     var body: some View {
-        HStack {
-            Text(applicant.firstName)
-                .font(.headline)
-            Text(applicant.lastName)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            
-            Spacer()
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.black, lineWidth: 3)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+            HStack {
+                Text(applicant.firstName)
+                    .font(Font.custom("Outfit", size: 18))
+                    .fontWeight(.regular)
+                    .font(.headline)
+                Text(applicant.lastName)
+                    .font(Font.custom("Outfit", size: 18))
+                    .fontWeight(.regular)
+                    .font(.headline)
+                
+                Spacer()
 
-            // Étoile cliquable pour basculer le statut de favori
-            IsFavoriteView(isFavorite: applicant.isFavorite, toggleFavorite: toggleFavorite)
+                // Étoile cliquable pour basculer le statut de favori
+                IsFavoriteView(isFavorite: applicant.isFavorite, toggleFavorite: toggleFavorite)
+            }
+            .padding(20.0)
         }
+
+        
     }
 }
 
