@@ -5,61 +5,64 @@
 //  Created by Margot Pasquali on 26/08/2024.
 //
 
-
 import SwiftUI
 import VitesseModels
 
 struct ApplicantListView: View {
     @ObservedObject var viewModel: ApplicantListViewModel
-
     @Environment(\.editMode) private var editMode
-
+    
     let isAdmin: Bool = true
-
+    
     var body: some View {
-        List {
-            // Utilisation des filteredResults pour afficher les candidats
-            ForEach(viewModel.filteredApplicants, id: \.id) { applicant in
-                HStack {
-                    if editMode?.wrappedValue.isEditing == true {
-                        Image(systemName: viewModel.selectedApplicants.contains(applicant.id) ? "checkmark.circle.fill" : "circle")
-                            .onTapGesture {
-                                toggleSelection(for: applicant.id)
+        VStack {
+            if viewModel.isLoading {
+                ProgressView("Loading...")
+                
+            } else if viewModel.filteredApplicants.isEmpty {
+                Text("No applicant found")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .padding()
+                
+            } else {
+                List {
+                    ForEach(viewModel.filteredApplicants, id: \.id) { applicant in
+                        HStack {
+                            if editMode?.wrappedValue.isEditing == true {
+                                Image(systemName: viewModel.selectedApplicants.contains(applicant.id) ? "checkmark.circle.fill" : "circle")
+                                    .onTapGesture {
+                                        toggleSelection(for: applicant.id)
+                                    }
                             }
-                    }
-
-                    ZStack {
-                        // Contenu de la ligne
-                        ApplicantListRowView(applicant: applicant) {
-                            viewModel.toggleFavoriteStatus(for: applicant)
+                            
+                            ApplicantListRowView(applicant: applicant) {
+                                viewModel.toggleFavoriteStatus(for: applicant)
+                            }
+                            
+                            NavigationLink(destination: ApplicantDetailView(
+                                viewModel: ApplicantDetailViewModel(applicant: applicant, isAdmin: isAdmin),
+                                toggleFavorite: {},
+                                applicant: .constant(applicant)
+                            )) {
+                                EmptyView()
+                            }
                         }
-
-                        // NavigationLink invisible
-                        NavigationLink(destination: ApplicantDetailView(
-                            viewModel: ApplicantDetailViewModel(applicant: applicant, isAdmin: isAdmin),
-                            toggleFavorite: {},
-                            applicant: .constant(applicant)
-                        )) {
-                            EmptyView() // Pas de contenu visible pour le lien
-                        }
-                        .opacity(0) // Rendre le NavigationLink invisible
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
                     }
                 }
-                .listRowInsets(EdgeInsets()) // Supprime les marges internes par défaut de chaque ligne
-                .listRowSeparator(.hidden)  // Masquer le séparateur entre les lignes
+                .listStyle(PlainListStyle())
             }
         }
-        .padding(20)
-        .listStyle(PlainListStyle())  // Utiliser un style de liste simplifié
         .navigationTitle("Candidates")
-        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $viewModel.searchText)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()  // Bouton pour basculer en mode d'édition
+                EditButton()
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue.isEditing == true {
-                    // Bouton pour supprimer les candidats sélectionnés en mode d'édition
                     Button(action: deleteSelectedApplicants) {
                         Image(systemName: "trash")
                     }
@@ -73,23 +76,22 @@ struct ApplicantListView: View {
             }
         }
         .onAppear {
+            print("ApplicantListView appeared")
             Task {
                 await viewModel.fetchApplicantDetailList()
             }
         }
-        .navigationBarBackButtonHidden(true)
     }
-
-    // Basculer la sélection des candidats
-    private func toggleSelection(for applicant: UUID) {
-        if viewModel.selectedApplicants.contains(applicant) {
-            viewModel.selectedApplicants.remove(applicant)
+    
+    private func toggleSelection(for applicantID: UUID) {
+        if viewModel.selectedApplicants.contains(applicantID) {
+            viewModel.selectedApplicants.remove(applicantID)
         } else {
-            viewModel.selectedApplicants.insert(applicant)
+            viewModel.selectedApplicants.insert(applicantID)
         }
+        print("Selected applicants: \(viewModel.selectedApplicants.count)")
     }
-
-    // Suppression des candidats sélectionnés en mode d'édition
+    
     private func deleteSelectedApplicants() {
         Task {
             await viewModel.deleteSelectedApplicants()
@@ -97,6 +99,17 @@ struct ApplicantListView: View {
     }
 }
 
-#Preview {
-    ApplicantListView(viewModel: ApplicantListViewModel())
+struct ApplicantListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let fakeApplicants = [
+            ApplicantDetail(id: UUID(), firstName: "John", lastName: "Doe", email: "johndoe@example.com", phone: "123-456-7890", linkedinURL: nil, note: "Great candidate", isFavorite: false),
+            ApplicantDetail(id: UUID(), firstName: "Jane", lastName: "Smith", email: "janesmith@example.com", phone: "987-654-3210", linkedinURL: nil, note: "Experienced developer", isFavorite: true),
+            ApplicantDetail(id: UUID(), firstName: "Alice", lastName: "Johnson", email: "alice.johnson@example.com", phone: "555-123-4567", linkedinURL: nil, note: "Frontend expert", isFavorite: false)
+        ]
+        
+        let viewModel = ApplicantListViewModel()
+        viewModel.applicants = fakeApplicants // Inject fake data into the view model
+        
+        return ApplicantListView(viewModel: viewModel)
+    }
 }

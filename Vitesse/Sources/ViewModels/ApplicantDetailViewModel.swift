@@ -45,9 +45,6 @@ class ApplicantDetailViewModel: ObservableObject {
     }
 
 
-
-
-    
     @MainActor
     func updateApplicantDetails() async {
         guard isAdmin else { return } // Vérifiez si l'utilisateur est admin
@@ -68,8 +65,6 @@ class ApplicantDetailViewModel: ObservableObject {
             print("Error updating applicant details: \(error.localizedDescription)")
         }
     }
-
-
 
 
 }

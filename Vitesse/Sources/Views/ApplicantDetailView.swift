@@ -4,6 +4,7 @@
 //
 //  Created by Margot Pasquali on 02/09/2024.
 //
+
 import SwiftUI
 import VitesseModels
 
@@ -153,7 +154,7 @@ struct ApplicantDetailView: View {
                         }
                         isEditing.toggle()
                     }
-                    .foregroundColor(.black) // Ajouter la couleur noire au bouton "Edit" ou "Save"
+                    .foregroundColor(.black)
                 }
             }
         }

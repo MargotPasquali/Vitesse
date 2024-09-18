@@ -13,7 +13,7 @@ struct LoginView: View {
     @State private var password: String = ""
     
     @ObservedObject var viewModel: LoginViewModel
-    @State private var showDestination = false
+    @State private var showApplicantList = false
     
     var body: some View {
         NavigationStack {
@@ -64,8 +64,8 @@ struct LoginView: View {
                 Button(action: {
                     Task {
                         do {
-                            try await viewModel.login()
-                            showDestination = true // Passer à ApplicantListView après le succès
+                            try await viewModel.login()  // Essaye de se connecter
+                            showApplicantList = true // Déclenche la navigation après succès
                         } catch {
                             // Handle error if needed
                             print("Login failed with error: \(error.localizedDescription)")
@@ -98,22 +98,18 @@ struct LoginView: View {
                         )
                 }
                 
-                NavigationLink(destination: ApplicantListView(viewModel: ApplicantListViewModel()), isActive: $showDestination) {
-                    EmptyView()
+                // Navigation vers ApplicantListView si le login est réussi
+                NavigationLink(destination: ApplicantListView(viewModel: ApplicantListViewModel()), isActive: $showApplicantList) {
+                    EmptyView()  // Vue vide utilisée pour déclencher la navigation
                 }
             }
             .padding(.horizontal, 40)
             .navigationBarBackButtonHidden(true)
             .font(Font.custom("Outfit", size: 18))
             .fontWeight(.regular)
-
-        }
-        .onTapGesture {
-            // Hide keyboard
         }
     }
 }
-
 
 #Preview {
     LoginView(viewModel: LoginViewModel())

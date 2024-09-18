@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,16 @@
 		AEDF44FC2C7CCF3E00435314 /* ApplicantListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AE1A48F72C9B0F9000E55FFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE50F5CC2C738F6300C67C4A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE50F5D32C738F6300C67C4A;
+			remoteInfo = Vitesse;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		AE36CB062C89DDAF0038E4D5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -53,6 +63,7 @@
 		AE1270C92C98965700E48262 /* FontsDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsDebugView.swift; sourceTree = "<group>"; };
 		AE1270CD2C98985400E48262 /* Allura-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Allura-Regular.ttf"; sourceTree = "<group>"; };
 		AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		AE1A48F32C9B0F9000E55FFC /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModel.swift; sourceTree = "<group>"; };
 		AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,7 +82,18 @@
 		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AE1A48F42C9B0F9000E55FFC /* VitesseTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VitesseTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		AE1A48F02C9B0F9000E55FFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE50F5D12C738F6300C67C4A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -127,6 +149,7 @@
 			children = (
 				AE36CADB2C89D6410038E4D5 /* Resources */,
 				AE50F5D62C738F6300C67C4A /* Sources */,
+				AE1A48F42C9B0F9000E55FFC /* VitesseTests */,
 				AE50F5D52C738F6300C67C4A /* Products */,
 				AE36CB022C89DDAF0038E4D5 /* Frameworks */,
 			);
@@ -136,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				AE50F5D42C738F6300C67C4A /* Vitesse.app */,
+				AE1A48F32C9B0F9000E55FFC /* VitesseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,6 +219,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AE1A48F22C9B0F9000E55FFC /* VitesseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE1A48FB2C9B0F9000E55FFC /* Build configuration list for PBXNativeTarget "VitesseTests" */;
+			buildPhases = (
+				AE1A48EF2C9B0F9000E55FFC /* Sources */,
+				AE1A48F02C9B0F9000E55FFC /* Frameworks */,
+				AE1A48F12C9B0F9000E55FFC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE1A48F82C9B0F9000E55FFC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AE1A48F42C9B0F9000E55FFC /* VitesseTests */,
+			);
+			name = VitesseTests;
+			packageProductDependencies = (
+			);
+			productName = VitesseTests;
+			productReference = AE1A48F32C9B0F9000E55FFC /* VitesseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AE50F5D32C738F6300C67C4A /* Vitesse */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE50F5E22C738F6500C67C4A /* Build configuration list for PBXNativeTarget "Vitesse" */;
@@ -220,9 +267,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					AE1A48F22C9B0F9000E55FFC = {
+						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
+						TestTargetID = AE50F5D32C738F6300C67C4A;
+					};
 					AE50F5D32C738F6300C67C4A = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -242,11 +294,19 @@
 			projectRoot = "";
 			targets = (
 				AE50F5D32C738F6300C67C4A /* Vitesse */,
+				AE1A48F22C9B0F9000E55FFC /* VitesseTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AE1A48F12C9B0F9000E55FFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE50F5D22C738F6300C67C4A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,6 +321,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AE1A48EF2C9B0F9000E55FFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE50F5D02C738F6300C67C4A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,7 +351,56 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AE1A48F82C9B0F9000E55FFC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE50F5D32C738F6300C67C4A /* Vitesse */;
+			targetProxy = AE1A48F72C9B0F9000E55FFC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AE1A48F92C9B0F9000E55FFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.VitesseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
+			};
+			name = Debug;
+		};
+		AE1A48FA2C9B0F9000E55FFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.VitesseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitesse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vitesse";
+			};
+			name = Release;
+		};
 		AE50F5E02C738F6500C67C4A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,6 +583,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AE1A48FB2C9B0F9000E55FFC /* Build configuration list for PBXNativeTarget "VitesseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE1A48F92C9B0F9000E55FFC /* Debug */,
+				AE1A48FA2C9B0F9000E55FFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AE50F5CF2C738F6300C67C4A /* Build configuration list for PBXProject "Vitesse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

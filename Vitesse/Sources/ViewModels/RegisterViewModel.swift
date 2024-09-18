@@ -10,11 +10,11 @@ import VitesseNetworking
 
 class RegisterViewModel: ObservableObject {
     // MARK: - Published Properties
-    @Published var firstName: String = "Francine"
-    @Published var lastName: String = "Gentil"
-    @Published var email: String = "francinegentil@hotmail.fr"
-    @Published var password: String = "francinegentil33"
-    @Published var confirmPassword: String = "francinegentil33"
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var confirmPassword: String = ""
     @Published var errorMessage: String?
 
     private var registerService: RegisterService
