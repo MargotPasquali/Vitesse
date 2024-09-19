@@ -55,20 +55,24 @@ class ApplicantListViewModel: ObservableObject {
 
     func fetchApplicantDetailList() async {
         print("Fetching applicant details...")
-        isLoading = true
+        
+        // Exécuter sur le thread principal
+        Task { @MainActor in
+            self.isLoading = true
+        }
+        
         do {
             let applicantList = try await applicantService.getAllCandidates()
             
-            // Exécuter les modifications sur le thread principal
-            await MainActor.run {
+            // Exécuter les modifications sur le thread principal via Task @MainActor
+            Task { @MainActor in
                 self.applicants = applicantList
                 print("Applicants stored in ViewModel: \(self.applicants.count)")
                 self.isLoading = false
                 self.filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
             }
         } catch {
-            // En cas d'erreur, il faut aussi s'assurer que l'erreur est publiée sur le main thread
-            await MainActor.run {
+            Task { @MainActor in
                 self.applicants = []
                 self.isLoading = false
                 self.errorMessage = "Failed to fetch applicants: \(error.localizedDescription)"
@@ -76,6 +80,8 @@ class ApplicantListViewModel: ObservableObject {
             }
         }
     }
+
+
 
 
     // MARK: - Filter Applicants
@@ -97,18 +103,32 @@ class ApplicantListViewModel: ObservableObject {
             print("Filtered by favorites only: \(results.count) results found")
         }
 
-        self.filteredApplicants = results
-        print("Total filtered applicants: \(self.filteredApplicants.count)")
+        Task { @MainActor in
+            self.filteredApplicants = results
+            print("Total filtered applicants: \(self.filteredApplicants.count)")
+        }
     }
+
 
     // MARK: - Toggle Favorite
     
-    func toggleFavoriteStatus(for applicant: ApplicantDetail) {
+    func toggleFavoriteStatus(for applicant: ApplicantDetail) async {
         if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
-            applicants[index].isFavorite.toggle()
-            print("Favorite status toggled for applicant with ID: \(applicant.id) to \(applicants[index].isFavorite)")
+            do {
+                // Appel API pour basculer le statut favori
+                try await applicantService.putCandidateAsFavorite(applicant: applicant)
+                
+                // Mise à jour de l'état local après succès
+                Task { @MainActor in
+                    self.applicants[index].isFavorite.toggle()
+                    print("Favorite status toggled for applicant with ID: \(applicant.id) to \(self.applicants[index].isFavorite)")
+                }
+            } catch {
+                print("Error toggling favorite status: \(error.localizedDescription)")
+            }
         }
     }
+
 
     // MARK: - Delete Selected Applicants
 

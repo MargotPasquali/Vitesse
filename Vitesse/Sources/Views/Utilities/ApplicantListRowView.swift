@@ -32,11 +32,14 @@ struct ApplicantListRowView: View {
 
                 // Étoile cliquable pour basculer le statut de favori
                 IsFavoriteView(isFavorite: applicant.isFavorite, toggleFavorite: toggleFavorite)
+                    .font(.system(size: 23))
+
             }
             .padding(20.0)
         }
 
-        
+        .padding(.horizontal, 20)
+
     }
 }
 

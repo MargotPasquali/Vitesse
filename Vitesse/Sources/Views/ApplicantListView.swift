@@ -14,6 +14,14 @@ struct ApplicantListView: View {
     
     let isAdmin: Bool = true
     
+    init(viewModel: ApplicantListViewModel) {
+        self.viewModel = viewModel
+        
+        Task {
+            await viewModel.fetchApplicantDetailList()
+        }
+    }
+    
     var body: some View {
         VStack {
             if viewModel.isLoading {
@@ -30,22 +38,28 @@ struct ApplicantListView: View {
                     ForEach(viewModel.filteredApplicants, id: \.id) { applicant in
                         HStack {
                             if editMode?.wrappedValue.isEditing == true {
+                                Spacer()
                                 Image(systemName: viewModel.selectedApplicants.contains(applicant.id) ? "checkmark.circle.fill" : "circle")
                                     .onTapGesture {
                                         toggleSelection(for: applicant.id)
                                     }
                             }
                             
-                            ApplicantListRowView(applicant: applicant) {
-                                viewModel.toggleFavoriteStatus(for: applicant)
-                            }
-                            
-                            NavigationLink(destination: ApplicantDetailView(
-                                viewModel: ApplicantDetailViewModel(applicant: applicant, isAdmin: isAdmin),
-                                toggleFavorite: {},
-                                applicant: .constant(applicant)
-                            )) {
-                                EmptyView()
+                            ZStack {
+                                ApplicantListRowView(applicant: applicant) {
+                                    Task {
+                                        await viewModel.toggleFavoriteStatus(for: applicant)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: ApplicantDetailView(
+                                    viewModel: ApplicantDetailViewModel(applicant: applicant, isAdmin: isAdmin),
+                                    toggleFavorite: {},
+                                    applicant: .constant(applicant)
+                                )) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
                             }
                         }
                         .listRowInsets(EdgeInsets())
@@ -53,34 +67,43 @@ struct ApplicantListView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-            }
-        }
-        .navigationTitle("Candidates")
-        .searchable(text: $viewModel.searchText)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if editMode?.wrappedValue.isEditing == true {
-                    Button(action: deleteSelectedApplicants) {
-                        Image(systemName: "trash")
+                .navigationTitle("Candidates")
+                .navigationBarTitleDisplayMode(.inline)
+                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(editMode?.wrappedValue.isEditing == true ? "Done" : "Edit") {
+                            withAnimation {
+                                editMode?.wrappedValue = editMode?.wrappedValue.isEditing == true ? .inactive : .active
+                            }
+                        }
+                        .foregroundColor(.black)
                     }
-                } else {
-                    Button(action: {
-                        viewModel.showFavoritesOnly.toggle()
-                    }) {
-                        Image(systemName: viewModel.showFavoritesOnly ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if editMode?.wrappedValue.isEditing == true {
+                            Button(action: deleteSelectedApplicants) {
+                                Image(systemName: "trash")
+                            }
+                        } else {
+                            Button(action: {
+                                viewModel.showFavoritesOnly.toggle()
+                            }) {
+                                Image(systemName: viewModel.showFavoritesOnly ? "star.fill" : "star")
+                                    .foregroundStyle(Color.black)
+                                    .font(.system(size: 20))
+
+                            }
+                        }
+                    }
+                }
+                .onAppear {
+                    Task {
+                        await viewModel.fetchApplicantDetailList()
                     }
                 }
             }
         }
-        .onAppear {
-            print("ApplicantListView appeared")
-            Task {
-                await viewModel.fetchApplicantDetailList()
-            }
-        }
+        .navigationBarBackButtonHidden(true)
     }
     
     private func toggleSelection(for applicantID: UUID) {
@@ -108,7 +131,7 @@ struct ApplicantListView_Previews: PreviewProvider {
         ]
         
         let viewModel = ApplicantListViewModel()
-        viewModel.applicants = fakeApplicants // Inject fake data into the view model
+        viewModel.applicants = fakeApplicants
         
         return ApplicantListView(viewModel: viewModel)
     }
