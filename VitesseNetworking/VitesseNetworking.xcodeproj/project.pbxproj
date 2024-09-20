@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		AE3175502C8B2D4000C931B6 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE31754F2C8B2D4000C931B6 /* VitesseModels.framework */; };
 		AE3175512C8B2D4000C931B6 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE31754F2C8B2D4000C931B6 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AE36CB1C2C89E2170038E4D5 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */; };
-		AE36CB212C89E2170038E4D5 /* VitesseNetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB202C89E2170038E4D5 /* VitesseNetworkingTests.swift */; };
+		AE36CB212C89E2170038E4D5 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB202C89E2170038E4D5 /* MockNetworkManager.swift */; };
 		AE36CB502C89E98C0038E4D5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4F2C89E98C0038E4D5 /* NetworkManager.swift */; };
 		AE36CB512C89E98C0038E4D5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4F2C89E98C0038E4D5 /* NetworkManager.swift */; };
 		AE36CB542C89E9BF0038E4D5 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB532C89E9BF0038E4D5 /* AuthenticationService.swift */; };
@@ -19,6 +18,11 @@
 		AE36CB582C89E9EB0038E4D5 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB562C89E9EB0038E4D5 /* RegisterService.swift */; };
 		AE36CB5A2C89EA110038E4D5 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB592C89EA110038E4D5 /* ApplicantService.swift */; };
 		AE36CB5B2C89EA110038E4D5 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB592C89EA110038E4D5 /* ApplicantService.swift */; };
+		AED6E6292C9DBAF30011D9B5 /* MockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6E6282C9DBAF30011D9B5 /* MockServices.swift */; };
+		AED6E62B2C9DBB120011D9B5 /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6E62A2C9DBB120011D9B5 /* FakeResponseData.swift */; };
+		AED6E62D2C9DBB260011D9B5 /* MockProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6E62C2C9DBB260011D9B5 /* MockProtocol.swift */; };
+		AED6E62E2C9DC6880011D9B5 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */; };
+		AED6E62F2C9DC6880011D9B5 /* VitesseNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AED6E6302C9DC6880011D9B5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AED6E62F2C9DC6880011D9B5 /* VitesseNetworking.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -50,11 +65,14 @@
 		AE31754F2C8B2D4000C931B6 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB1B2C89E2170038E4D5 /* VitesseNetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseNetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE36CB202C89E2170038E4D5 /* VitesseNetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseNetworkingTests.swift; sourceTree = "<group>"; };
+		AE36CB202C89E2170038E4D5 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		AE36CB4F2C89E98C0038E4D5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AE36CB532C89E9BF0038E4D5 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		AE36CB562C89E9EB0038E4D5 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		AE36CB592C89EA110038E4D5 /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
+		AED6E6282C9DBAF30011D9B5 /* MockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServices.swift; sourceTree = "<group>"; };
+		AED6E62A2C9DBB120011D9B5 /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
+		AED6E62C2C9DBB260011D9B5 /* MockProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE36CB1C2C89E2170038E4D5 /* VitesseNetworking.framework in Frameworks */,
+				AED6E62E2C9DC6880011D9B5 /* VitesseNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +135,8 @@
 		AE36CB1F2C89E2170038E4D5 /* VitesseNetworkingTests */ = {
 			isa = PBXGroup;
 			children = (
-				AE36CB202C89E2170038E4D5 /* VitesseNetworkingTests.swift */,
+				AED6E6272C9DBADA0011D9B5 /* Utilities */,
+				AE36CB202C89E2170038E4D5 /* MockNetworkManager.swift */,
 			);
 			path = VitesseNetworkingTests;
 			sourceTree = "<group>";
@@ -130,6 +149,16 @@
 				AE36CB592C89EA110038E4D5 /* ApplicantService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		AED6E6272C9DBADA0011D9B5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AED6E6282C9DBAF30011D9B5 /* MockServices.swift */,
+				AED6E62A2C9DBB120011D9B5 /* FakeResponseData.swift */,
+				AED6E62C2C9DBB260011D9B5 /* MockProtocol.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +200,7 @@
 				AE36CB172C89E2170038E4D5 /* Sources */,
 				AE36CB182C89E2170038E4D5 /* Frameworks */,
 				AE36CB192C89E2170038E4D5 /* Resources */,
+				AED6E6302C9DC6880011D9B5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,10 +284,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE36CB552C89E9BF0038E4D5 /* AuthenticationService.swift in Sources */,
+				AED6E62D2C9DBB260011D9B5 /* MockProtocol.swift in Sources */,
 				AE36CB512C89E98C0038E4D5 /* NetworkManager.swift in Sources */,
 				AE36CB582C89E9EB0038E4D5 /* RegisterService.swift in Sources */,
+				AED6E62B2C9DBB120011D9B5 /* FakeResponseData.swift in Sources */,
 				AE36CB5B2C89EA110038E4D5 /* ApplicantService.swift in Sources */,
-				AE36CB212C89E2170038E4D5 /* VitesseNetworkingTests.swift in Sources */,
+				AE36CB212C89E2170038E4D5 /* MockNetworkManager.swift in Sources */,
+				AED6E6292C9DBAF30011D9B5 /* MockServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +502,6 @@
 		AE36CB292C89E2170038E4D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FQJ5XK4959;
@@ -486,7 +518,6 @@
 		AE36CB2A2C89E2170038E4D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FQJ5XK4959;

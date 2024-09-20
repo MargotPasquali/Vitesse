@@ -15,8 +15,8 @@ struct ApplicantDetailView: View {
     
     @Binding var applicant: ApplicantDetail
     @State private var favoriteChanged = false
-    @Environment(\.presentationMode) var presentationMode // Utilisé pour contrôler la navigation
-
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             ZStack {
@@ -104,9 +104,10 @@ struct ApplicantDetailView: View {
                         }
                     }
                     
-                    HStack {
+                    HStack(alignment: .top) {
                         Image(systemName: "doc.text.fill")
                             .foregroundColor(.black)
+                            .padding(.top, 4)  
                         if isEditing {
                             TextField("Note", text: Binding(
                                 get: { viewModel.applicant.note ?? "" },
@@ -126,7 +127,7 @@ struct ApplicantDetailView: View {
             .frame(height: 400)
         }
         .padding()
-        .navigationTitle("Applicant Details")
+        .navigationTitle("Détails du candidat")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true) // Cacher le bouton "Back" par défaut
         .toolbar {
@@ -171,10 +172,12 @@ struct ApplicantDetailView: View {
                         .font(Font.custom("Outfit", size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
+                        .padding(.vertical, 11.0)
+                        .padding(.horizontal, 20.0)
                         .background(Color.black)
                         .cornerRadius(8)
-                        .frame(maxWidth: .infinity)
                 }
+                .padding(.horizontal, 15.0)
             }
         } else {
             HStack {

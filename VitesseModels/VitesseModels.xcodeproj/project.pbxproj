@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE36CAF12C89D89B0038E4D5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */; };
 		AE36CAF62C89D89B0038E4D5 /* VitesseModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAF52C89D89B0038E4D5 /* VitesseModelsTests.swift */; };
 		AE36CB412C89E6A20038E4D5 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB402C89E6A20038E4D5 /* AuthenticationRequest.swift */; };
 		AE36CB422C89E6A20038E4D5 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB402C89E6A20038E4D5 /* AuthenticationRequest.swift */; };
@@ -19,6 +18,8 @@
 		AE36CB4B2C89E8070038E4D5 /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB492C89E8070038E4D5 /* AuthenticationResponse.swift */; };
 		AE36CB4D2C89E8310038E4D5 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4C2C89E8310038E4D5 /* RegisterRequest.swift */; };
 		AE36CB4E2C89E8310038E4D5 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4C2C89E8310038E4D5 /* RegisterRequest.swift */; };
+		AED6E6312C9DC6A40011D9B5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */; };
+		AED6E6322C9DC6A40011D9B5 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,20 @@
 			remoteInfo = VitesseModels;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AED6E6332C9DC6A40011D9B5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AED6E6322C9DC6A40011D9B5 /* VitesseModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AE31754B2C8B2B1100C931B6 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE36CAF12C89D89B0038E4D5 /* VitesseModels.framework in Frameworks */,
+				AED6E6312C9DC6A40011D9B5 /* VitesseModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +162,7 @@
 				AE36CAEC2C89D89B0038E4D5 /* Sources */,
 				AE36CAED2C89D89B0038E4D5 /* Frameworks */,
 				AE36CAEE2C89D89B0038E4D5 /* Resources */,
+				AED6E6332C9DC6A40011D9B5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -443,7 +459,6 @@
 		AE36CAFE2C89D89B0038E4D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FQJ5XK4959;
@@ -460,7 +475,6 @@
 		AE36CAFF2C89D89B0038E4D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FQJ5XK4959;

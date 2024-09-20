@@ -28,7 +28,7 @@ struct RegisterView: View {
                     .fontWeight(.semibold)
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("First Name")
+                    Text("Prénom")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -39,7 +39,7 @@ struct RegisterView: View {
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                     
-                    Text("Last Name")
+                    Text("Nom de Famille")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -62,7 +62,7 @@ struct RegisterView: View {
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
                     
-                    Text("Password")
+                    Text("Mot de passe")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -71,7 +71,7 @@ struct RegisterView: View {
                         .background(Color(UIColor.secondarySystemBackground))
                         .cornerRadius(8)
                     
-                    Text("Confirm Password")
+                    Text("Confirmation du mot de passe")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -107,7 +107,7 @@ struct RegisterView: View {
                         }
                     }
                 }) {
-                    Text("Create")
+                    Text("Créer un compte")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -120,7 +120,7 @@ struct RegisterView: View {
                 .alert(isPresented: $showAlert) {
                     if navigateToLogin {
                         return Alert(
-                            title: Text("Success"),
+                            title: Text("Bienvenue"),
                             message: Text(alertMessage),
                             dismissButton: .default(Text("OK")) {
                                 navigateToLogin = true // Trigger navigation to LoginView
@@ -128,7 +128,7 @@ struct RegisterView: View {
                         )
                     } else {
                         return Alert(
-                            title: Text("Error"),
+                            title: Text("Erreur"),
                             message: Text(alertMessage),
                             dismissButton: .default(Text("OK"))
                         )

@@ -18,18 +18,18 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) { // Ajustez l'espacement ici pour réduire l'espace
-                Image("Logo")
+                Image("Logo Recrutement")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 250)
+                    .frame(width: 350)
                 
-                Text("Login")
+                Text("Connexion")
                     .font(Font.custom("Outfit", size: 30))
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                 
                 VStack(alignment: .leading, spacing: 12) { // Ajustez l'espacement interne ici
-                    Text("Email/Username")
+                    Text("Email")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -42,7 +42,7 @@ struct LoginView: View {
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
                     
-                    Text("Password")
+                    Text("Mot de passe")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
                         .font(.headline)
@@ -72,7 +72,7 @@ struct LoginView: View {
                         }
                     }
                 }) {
-                    Text("Sign In")
+                    Text("Se connecter")
                         .foregroundColor(.white)
                         .font(Font.custom("Outfit", size: 20))
                         .fontWeight(.bold)
@@ -84,7 +84,7 @@ struct LoginView: View {
                 
                 // Register Button
                 NavigationLink(destination: RegisterView()) {
-                    Text("Register")
+                    Text("S'enregistrer")
                         .foregroundColor(.black)
                         .font(Font.custom("Outfit", size: 20))
                         .fontWeight(.bold)

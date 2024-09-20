@@ -16,7 +16,7 @@ struct SplashScreenView: View {
                 Spacer() // Espace flexible au-dessus du logo
 
                 // Logo centré
-                Image("Logo")
+                Image("Logo Vitesse")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 400) // Ajustez la taille maximale si nécessaire
@@ -25,13 +25,13 @@ struct SplashScreenView: View {
                 HStack {
                     Spacer()
                     // Texte d'ombre (gris clair) avec un léger décalage
-                    Text("Recruiting")
+                    Text("Recrutement")
                         .font(Font.custom("Allura-Regular", size: 40))
                         .foregroundColor(Color(hex: "D3D3D3"))
-                        .offset(x: 146, y: 3) // Légère décalage pour l'effet d'ombre
+                        .offset(x: 170, y: 3) // Légère décalage pour l'effet d'ombre
 
                     // Texte principal (noir) superposé au-dessus
-                    Text("Recruiting")
+                    Text("Recrutement")
                         .font(Font.custom("Allura-Regular", size: 40))
                         .foregroundColor(Color.black)
                     Spacer()
