@@ -11,10 +11,20 @@ import VitesseNetworking
 class LoginViewModel: ObservableObject {
     // MARK: - Enums
     
-    /// Enumération des erreurs spécifiques au `AuthenticationViewModel`.
+    /// Enumération des erreurs spécifiques au `LoginViewModel`.
     enum LoginViewModelError: Error {
         case authenticationFailed
         case missingAccountDetails
+        
+        var localizedDescription: String {
+            switch self {
+            case .authenticationFailed:
+                return "Échec de la connexion. Assurez-vous que vos identifiants sont corrects. Veuillez réessayer."
+            case .missingAccountDetails:
+                return "L'adresse e-mail ou le mot de passe que vous avez saisi est incorrect. Vérifiez vos informations et essayez à nouveau."
+            }
+        }
+
     }
     
     // MARK: - Published Properties
@@ -88,7 +98,4 @@ class LoginViewModel: ObservableObject {
             throw error
         }
     }
-    
-    
-    
 }

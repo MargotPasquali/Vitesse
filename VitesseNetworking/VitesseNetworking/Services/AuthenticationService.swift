@@ -24,7 +24,9 @@ public enum AuthenticationServiceError: Error {
     case networkError(Error)
     case decodingError(DecodingError)
     case unknown
+    
 }
+
 
 public final class RemoteAuthenticationService: AuthenticationService {
     

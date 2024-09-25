@@ -23,6 +23,27 @@ public enum RegisterServiceError: Error {
     case networkError(Error)
     case decodingError(DecodingError)
     case unknown
+    
+    public var localizedDescription: String {
+            switch self {
+            case .invalidCredentials:
+                return "Les informations d'identification fournies ne sont pas valides. Veuillez vérifier votre email et mot de passe."
+            case .invalidResponse:
+                return "Réponse invalide reçue du serveur. Veuillez réessayer plus tard."
+            case .unauthorized:
+                return "Accès non autorisé. Veuillez vérifier vos informations d'authentification."
+            case .missingToken:
+                return "Jeton d'authentification manquant. Veuillez vous reconnecter."
+            case .serverError:
+                return "Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard."
+            case .networkError(let error):
+                return "Erreur réseau. Veuillez vérifier votre connexion."
+            case .decodingError(let decodingError):
+                return "Erreur lors du décodage des données : \(decodingError.localizedDescription)."
+            case .unknown:
+                return "Une erreur inconnue s'est produite. Veuillez réessayer."
+            }
+        }
 }
 
 public final class RemoteRegisterService: RegisterService {

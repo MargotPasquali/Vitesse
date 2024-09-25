@@ -82,6 +82,8 @@ struct ApplicantListView: View {
                             if editMode?.wrappedValue.isEditing == true {
                                 Button(action: deleteSelectedApplicants) {
                                     Image(systemName: "trash")
+                                        .foregroundStyle(Color.black)
+
                                 }
                             } else {
                                 Button(action: {

@@ -9,12 +9,10 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
-    
     @ObservedObject var viewModel: LoginViewModel
     @State private var showApplicantList = false
-    
+    @State private var showErrorAlert = false
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) { // Ajustez l'espacement ici pour réduire l'espace
@@ -32,7 +30,6 @@ struct LoginView: View {
                     Text("Email")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
-                        .font(.headline)
                     
                     TextField("Adresse email", text: $viewModel.email)
                         .padding()
@@ -45,7 +42,6 @@ struct LoginView: View {
                     Text("Mot de passe")
                         .font(Font.custom("Outfit", size: 18))
                         .fontWeight(.medium)
-                        .font(.headline)
                     
                     SecureField("Mot de passe", text: $viewModel.password)
                         .padding()
@@ -53,22 +49,16 @@ struct LoginView: View {
                         .cornerRadius(8)
                 }
                 
-                if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 8)
-                }
-                
-                // Sign In Button
+                // Bouton de connexion
                 Button(action: {
                     Task {
                         do {
                             try await viewModel.login()  // Essaye de se connecter
                             showApplicantList = true // Déclenche la navigation après succès
                         } catch {
-                            // Handle error if needed
-                            print("Login failed with error: \(error.localizedDescription)")
+                            // On gère l'affichage de l'erreur ici
+                            viewModel.errorMessage = (error as? LoginViewModel.LoginViewModelError)?.localizedDescription
+                            showErrorAlert = true
                         }
                     }
                 }) {
@@ -82,7 +72,7 @@ struct LoginView: View {
                         .cornerRadius(8)
                 }
                 
-                // Register Button
+                // Bouton d'enregistrement
                 NavigationLink(destination: RegisterView()) {
                     Text("S'enregistrer")
                         .foregroundColor(.black)
@@ -107,9 +97,18 @@ struct LoginView: View {
             .navigationBarBackButtonHidden(true)
             .font(Font.custom("Outfit", size: 18))
             .fontWeight(.regular)
+            // Affichage de l'alerte en cas d'erreur
+            .alert(isPresented: $showErrorAlert) {
+                Alert(
+                    title: Text("Un problème est survenu"),
+                    message: Text(viewModel.errorMessage ?? "Une erreur est survenue. Veuillez réessayer."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
     }
 }
+
 
 #Preview {
     LoginView(viewModel: LoginViewModel())

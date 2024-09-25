@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,11 @@
 		AE1270C42C9892D700E48262 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270C32C9892D700E48262 /* SplashScreenView.swift */; };
 		AE1270CE2C98985400E48262 /* Allura-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1270CD2C98985400E48262 /* Allura-Regular.ttf */; };
 		AE1270D02C989C2600E48262 /* Outfit-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */; };
+		AE2494082C9F0CEF006D9101 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2494072C9F0CEF006D9101 /* VitesseModels.framework */; };
+		AE2494092C9F0CEF006D9101 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE2494072C9F0CEF006D9101 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE24940C2C9F0CF4006D9101 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */; };
+		AE24940D2C9F0CF4006D9101 /* VitesseNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE24940F2C9F0D7E006D9101 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */; };
 		AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */; };
 		AE36CB042C89DDAF0038E4D5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; };
 		AE36CB052C89DDAF0038E4D5 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -41,6 +46,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		AE24940A2C9F0CEF006D9101 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE24940D2C9F0CF4006D9101 /* VitesseNetworking.framework in Embed Frameworks */,
+				AE2494092C9F0CEF006D9101 /* VitesseModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE36CB062C89DDAF0038E4D5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,6 +79,9 @@
 		AE1270CD2C98985400E48262 /* Allura-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Allura-Regular.ttf"; sourceTree = "<group>"; };
 		AE1270CF2C989C2500E48262 /* Outfit-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AE1A48F32C9B0F9000E55FFC /* VitesseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE2494072C9F0CEF006D9101 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModel.swift; sourceTree = "<group>"; };
 		AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,15 +100,13 @@
 		AEDF44FB2C7CCF3E00435314 /* ApplicantListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		AE1A48F42C9B0F9000E55FFC /* VitesseTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VitesseTests; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		AE1A48F02C9B0F9000E55FFC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE24940C2C9F0CF4006D9101 /* VitesseNetworking.framework in Frameworks */,
+				AE2494082C9F0CEF006D9101 /* VitesseModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +139,22 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		AE2494032C9F08BF006D9101 /* VitesseTests */ = {
+			isa = PBXGroup;
+			children = (
+				AE2494042C9F08DE006D9101 /* ViewModelTests */,
+			);
+			path = VitesseTests;
+			sourceTree = "<group>";
+		};
+		AE2494042C9F08DE006D9101 /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */,
+			);
+			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
 		AE36CADB2C89D6410038E4D5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +170,8 @@
 		AE36CB022C89DDAF0038E4D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */,
+				AE2494072C9F0CEF006D9101 /* VitesseModels.framework */,
 				AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */,
 				AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */,
 			);
@@ -147,9 +183,9 @@
 			children = (
 				AE36CADB2C89D6410038E4D5 /* Resources */,
 				AE50F5D62C738F6300C67C4A /* Sources */,
-				AE1A48F42C9B0F9000E55FFC /* VitesseTests */,
 				AE50F5D52C738F6300C67C4A /* Products */,
 				AE36CB022C89DDAF0038E4D5 /* Frameworks */,
+				AE2494032C9F08BF006D9101 /* VitesseTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -223,14 +259,12 @@
 				AE1A48EF2C9B0F9000E55FFC /* Sources */,
 				AE1A48F02C9B0F9000E55FFC /* Frameworks */,
 				AE1A48F12C9B0F9000E55FFC /* Resources */,
+				AE24940A2C9F0CEF006D9101 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				AE1A48F82C9B0F9000E55FFC /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AE1A48F42C9B0F9000E55FFC /* VitesseTests */,
 			);
 			name = VitesseTests;
 			packageProductDependencies = (
@@ -322,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE24940F2C9F0D7E006D9101 /* LoginViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
