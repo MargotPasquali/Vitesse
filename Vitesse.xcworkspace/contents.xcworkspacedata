@@ -10,4 +10,10 @@
    <FileRef
       location = "group:Vitesse/Vitesse.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:VitesseTestUtilities.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Vitesse/Vitesse.xctestplan">
+   </FileRef>
 </Workspace>

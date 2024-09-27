@@ -33,16 +33,18 @@ class ApplicantDetailViewModel: ObservableObject {
         do {
             // Appel API pour basculer le statut favori
             try await applicantService.putCandidateAsFavorite(applicant: applicant)
-            
-            // Une fois que l'API confirme le succès, basculez l'état localement
-            Task { @MainActor in
-                self.applicant.isFavorite.toggle()
-                print("Successfully toggled favorite status for applicant \(applicant.id)")
+
+            // Utilisation de MainActor pour garantir que la mise à jour est exécutée sur le thread principal
+            await MainActor.run {
+                self.applicant.isFavorite.toggle()  // Basculer le statut dans le ViewModel
+                print("isFavorite dans le ViewModel a changé pour \(self.applicant.isFavorite)")
             }
+            print("Successfully toggled favorite status for applicant \(applicant.id)")
         } catch {
             print("Error toggling favorite status: \(error.localizedDescription)")
         }
     }
+
 
 
     @MainActor

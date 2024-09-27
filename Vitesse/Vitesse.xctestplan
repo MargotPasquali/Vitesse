@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "42A06EB2-645C-4967-A370-1B6B7944F34F",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Vitesse.xcodeproj",
+      "identifier" : "AE50F5D32C738F6300C67C4A",
+      "name" : "Vitesse"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:..\/VitesseNetworking\/VitesseNetworking.xcodeproj",
+        "identifier" : "AE36CB1A2C89E2170038E4D5",
+        "name" : "VitesseNetworkingTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Vitesse.xcodeproj",
+        "identifier" : "AE1A48F22C9B0F9000E55FFC",
+        "name" : "VitesseTests"
+      }
+    }
+  ],
+  "version" : 1
+}

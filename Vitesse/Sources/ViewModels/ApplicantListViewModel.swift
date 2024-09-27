@@ -12,24 +12,19 @@ import Combine
 
 class ApplicantListViewModel: ObservableObject {
     
-    enum ApplicantListViewModelError: LocalizedError {
-        case networkError(String)
-        case dataProcessingError(String)
-        case unknownError
-
-        var errorDescription: String? {
-            switch self {
-            case .networkError(let message):
-                return "Erreur réseau : \(message)"
-            case .dataProcessingError(let message):
-                return "Erreur lors du traitement des données : \(message)"
-            case .unknownError:
-                return "Une erreur inconnue s'est produite."
-            }
-        }
+    public enum ApplicantServiceError: Error {
+        case invalidCredentials
+        case invalidResponse
+        case unauthorized
+        case missingToken
+        case serverError(Int, message: String)  // Inclure le code de statut et le message
+        case networkError(Error)
+        case decodingError(DecodingError)
+        case unknown
     }
 
-    
+
+
     // MARK: - Published Properties
     
     @Published var applicants: [ApplicantDetail] = [] {
@@ -74,18 +69,20 @@ class ApplicantListViewModel: ObservableObject {
         
         do {
             let applicantList = try await applicantService.getAllCandidates()
-            
             await MainActor.run {
                 self.applicants = applicantList
                 self.isLoading = false
                 self.filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
             }
         } catch let error as ApplicantServiceError {
-            await handleError(ApplicantListViewModelError.networkError(error.localizedDescription))
+            await handleError(error) // Gérer ApplicantServiceError correctement
         } catch {
-            await handleError(ApplicantListViewModelError.unknownError)
+            // Si l'erreur ne correspond pas à ApplicantServiceError, la convertir explicitement en .networkError
+            let wrappedError = ApplicantServiceError.networkError(error)
+            await handleError(wrappedError)
         }
     }
+
 
     // MARK: - Filter Applicants
     
@@ -113,21 +110,27 @@ class ApplicantListViewModel: ObservableObject {
     func toggleFavoriteStatus(for applicant: ApplicantDetail) async {
         if let index = applicants.firstIndex(where: { $0.id == applicant.id }) {
             do {
+                // Cet appel peut lever une erreur serveur
                 try await applicantService.putCandidateAsFavorite(applicant: applicant)
                 
                 await MainActor.run {
                     self.applicants[index].isFavorite.toggle()
                 }
             } catch let error as ApplicantServiceError {
-                await handleError(ApplicantListViewModelError.networkError(error.localizedDescription))
+                // Capture des erreurs spécifiques de ApplicantServiceError
+                await handleError(error)
             } catch {
-                await handleError(ApplicantListViewModelError.unknownError)
+                // Conversion des erreurs génériques en ApplicantServiceError.unknown
+                await handleError(ApplicantServiceError.unknown)
             }
         }
     }
 
-    // MARK: - Delete Selected Applicants
 
+
+
+    // MARK: - Delete Selected Applicants
+    
     func deleteSelectedApplicants() async {
         let applicantsToDelete = applicants.filter { selectedApplicants.contains($0.id) }
 
@@ -143,18 +146,45 @@ class ApplicantListViewModel: ObservableObject {
 
             await fetchApplicantDetailList()
         } catch let error as ApplicantServiceError {
-            await handleError(ApplicantListViewModelError.networkError(error.localizedDescription))
+            print("Error captured: \(error)")
+            await handleError(error)  // Gérer les erreurs spécifiques à ApplicantServiceError
         } catch {
-            await handleError(ApplicantListViewModelError.unknownError)
+            print("Unknown error captured: \(error)")
+            await handleError(ApplicantServiceError.unknown)  // Transformer les erreurs génériques en .unknown
         }
     }
 
     // MARK: - Error Handling
 
     @MainActor
-    private func handleError(_ error: ApplicantListViewModelError) {
-        self.errorMessage = error.localizedDescription
+    private func handleError(_ error: Error) {
+        if let applicantError = error as? ApplicantServiceError {
+            switch applicantError {
+            case .networkError(let networkError as NSError):
+                self.errorMessage = "Erreur réseau : \(networkError.localizedDescription)"
+            case .invalidResponse:
+                self.errorMessage = "La réponse du serveur est invalide."
+            case .serverError(_, let message):  // Afficher le message d'erreur personnalisé
+                self.errorMessage = message
+            case .invalidCredentials:
+                self.errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
+            case .unauthorized:
+                self.errorMessage = "Accès non autorisé. Veuillez vous authentifier."
+            case .missingToken:
+                self.errorMessage = "Jeton manquant. Veuillez vous reconnecter."
+            case .decodingError(let decodingError):
+                self.errorMessage = "Erreur de décodage des données : \(decodingError.localizedDescription)"
+            case .unknown:
+                self.errorMessage = "Une erreur inconnue est survenue."
+            }
+        } else {
+            // Pour toute autre erreur non gérée
+            self.errorMessage = "Une erreur inconnue est survenue."
+        }
         self.isLoading = false
-        print("Error: \(error.localizedDescription)")
+        print("Error: \(self.errorMessage ?? "Unknown error")")
     }
+
+
+
 }

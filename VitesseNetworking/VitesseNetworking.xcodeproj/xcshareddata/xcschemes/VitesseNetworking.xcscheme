@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AE36CB102C89E2170038E4D5"
-               BuildableName = "VitesseNetworking.framework"
-               BlueprintName = "VitesseNetworking"
-               ReferencedContainer = "container:VitesseNetworking.xcodeproj">
+               BlueprintIdentifier = "AE50F5D32C738F6300C67C4A"
+               BuildableName = "Vitesse.app"
+               BlueprintName = "Vitesse"
+               ReferencedContainer = "container:../Vitesse/Vitesse.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AE36CB102C89E2170038E4D5"
-            BuildableName = "VitesseNetworking.framework"
-            BlueprintName = "VitesseNetworking"
-            ReferencedContainer = "container:VitesseNetworking.xcodeproj">
+            BlueprintIdentifier = "AE50F5D32C738F6300C67C4A"
+            BuildableName = "Vitesse.app"
+            BlueprintName = "Vitesse"
+            ReferencedContainer = "container:../Vitesse/Vitesse.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

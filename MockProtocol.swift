@@ -1,8 +1,8 @@
 //
 //  MockProtocol.swift
-//  VitesseNetworkingTests
+//  VitesseTestUtilities
 //
-//  Created by Margot Pasquali on 20/09/2024.
+//  Created by Margot Pasquali on 25/09/2024.
 //
 
 import Foundation

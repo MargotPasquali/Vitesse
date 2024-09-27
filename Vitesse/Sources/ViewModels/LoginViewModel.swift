@@ -86,15 +86,13 @@ class LoginViewModel: ObservableObject {
         
         do {
             isLoading = true
-            
             try await performAuthentication()
             print("Authentication step completed successfully") // Debug
-            
             isLoading = false
         } catch {
             isLoading = false
             print("Login failed at \(error) with error: \(error.localizedDescription)") // Debug
-            errorMessage = error.localizedDescription
+            errorMessage = (error as? LoginViewModelError)?.localizedDescription ?? error.localizedDescription
             throw error
         }
     }

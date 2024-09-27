@@ -1,10 +1,12 @@
 //
 //  FakeResponseData.swift
-//  VitesseNetworkingTests
+//  VitesseTestUtilities
 //
-//  Created by Margot Pasquali on 20/09/2024.
+//  Created by Margot Pasquali on 25/09/2024.
 //
+
 import Foundation
+import VitesseModels
 
 // MARK: - FakeResponseData
 
@@ -21,8 +23,23 @@ public class FakeResponseData {
     public class AuthenticationError: Error {}
     public static let error = AuthenticationError()
     
-    // MARK: - Simulated Correct Data
+    // MARK: - Simulated Applicant Details
     
+    public static var fakeApplicant: ApplicantDetail {
+        return ApplicantDetail(
+            id: UUID(uuidString: "533226E7-3C92-4499-8430-21386B0F2DFF")!,
+            firstName: "John",
+            lastName: "Doe",
+            email: "john.doe@example.com",
+            phone: "0712345678",
+            linkedinURL: "https://linkedin.com/in/johndoe",
+            note: "Nouveau candidat dans le secteur automobile.",
+            isFavorite: false
+        )
+    }
+    
+    // MARK: - Simulated Correct Data
+
     public static var authCorrectData: Data {
         let json = """
         {
@@ -32,7 +49,7 @@ public class FakeResponseData {
         """
         return Data(json.utf8)
     }
-    
+
     public static var getAllCandidatesCorrectData: Data {
         let json = """
         [
@@ -60,7 +77,7 @@ public class FakeResponseData {
         """
         return Data(json.utf8)
     }
-    
+
     public static var postNewCandidateCorrectData: Data {
         let json = """
         [

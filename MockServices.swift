@@ -1,11 +1,11 @@
 //
 //  MockServices.swift
-//  VitesseNetworkingTests
+//  VitesseTestUtilities
 //
-//  Created by Margot Pasquali on 20/09/2024.
+//  Created by Margot Pasquali on 25/09/2024.
 //
 
-import XCTest
+import Foundation
 @testable import VitesseNetworking
 @testable import VitesseModels
 
@@ -44,57 +44,62 @@ public final class MockAuthenticationService: AuthenticationService {
 
 public final class MockRegisterService: RegisterService {
     
-    // MARK: - Properties
-    
     public var networkManager: NetworkManagerProtocol
     public var error: RegisterServiceError?
     
-    // MARK: - Initializer
-    
-    public required init(networkManager: NetworkManagerProtocol) {
+    public init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager
     }
-    
-    // MARK: - RegisterService Methods
     
     public func createNewAccount(email: String, password: String, firstName: String, lastName: String) async throws {
         if let error = error {
             throw error
         }
         
-        // Simule une réponse réussie sans erreur.
-        print("Account successfully created for \(email)")
+        // Simule une interaction réseau avec le NetworkManager
+        let url = URL(string: "http://127.0.0.1:8080/register")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        do {
+            let (_, response) = try await networkManager.data(for: request, authenticatedRequest: false)
+            
+            if response.statusCode != 200 {
+                // Simule une erreur sur les réponses HTTP non 200
+                throw RegisterServiceError.invalidResponse
+            }
+            
+            print("Account successfully created for \(email)")
+        } catch {
+            throw RegisterServiceError.networkError(error)
+        }
     }
 }
+
 
 // MARK: - MockApplicantService
 
 public final class MockApplicantService: ApplicantService {
     
-    // MARK: - Properties
-    
     public var networkManager: NetworkManagerProtocol
     public var applicantList: [ApplicantDetail] = []
-    public var error: ApplicantServiceError?
+    public var simulatedError: ApplicantServiceError?  // Pour injecter des erreurs dans les tests
+    public var updatedApplicant: ApplicantDetail?
     
-    // MARK: - Initializer
     
     public required init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager
     }
     
-    // MARK: - ApplicantService Methods
-    
     public func getAllCandidates() async throws -> [ApplicantDetail] {
-        if let error = error {
+        if let error = simulatedError {
             throw error
         }
-        
         return applicantList
     }
     
     public func postNewCandidate(email: String, note: String?, linkedinURL: String?, firstName: String, lastName: String, phone: String) async throws -> [ApplicantDetail] {
-        if let error = error {
+        if let error = simulatedError {
             throw error
         }
         
@@ -105,7 +110,7 @@ public final class MockApplicantService: ApplicantService {
     }
     
     public func deleteCandidate(applicant: ApplicantDetail) async throws {
-        if let error = error {
+        if let error = simulatedError {
             throw error
         }
         
@@ -113,19 +118,24 @@ public final class MockApplicantService: ApplicantService {
     }
     
     public func putCandidateAsFavorite(applicant: ApplicantDetail) async throws {
-        if let error = error {
+        if let error = simulatedError {
+            throw error
+        }
+
+        if let index = applicantList.firstIndex(where: { $0.id == applicant.id }) {
+            applicantList[index].isFavorite.toggle()
+            print("isFavorite a changé pour \(applicantList[index].isFavorite)")
+        }
+    }
+
+    
+    public func updateCandidateDetails(applicant: ApplicantDetail) async throws {
+        if let error = simulatedError {
             throw error
         }
         
-        if let index = applicantList.firstIndex(where: { $0.id == applicant.id }) {
-            applicantList[index].isFavorite.toggle()
-        }
-    }
-    
-    public func updateCandidateDetails(applicant: ApplicantDetail) async throws {
-        if let error = error {
-            throw error
-        }
+        // Enregistrer le candidat mis à jour
+        updatedApplicant = applicant
         
         if let index = applicantList.firstIndex(where: { $0.id == applicant.id }) {
             applicantList[index] = applicant

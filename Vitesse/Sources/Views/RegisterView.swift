@@ -22,7 +22,7 @@ struct RegisterView: View {
                     .scaledToFit()
                     .frame(width: 100)
                 
-                Text("Register")
+                Text("Création de compte")
                     .font(Font.custom("Outfit", size: 30))
                     .font(.largeTitle)
                     .fontWeight(.semibold)
@@ -81,29 +81,23 @@ struct RegisterView: View {
                         .cornerRadius(8)
                 }
                 
-                if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
                 
                 // Create Button
                 Button(action: {
                     Task {
-                        if await viewModel.isFormValid() {
+                        if viewModel.isFormValid() {
                             let registrationSuccess = await viewModel.register()
                             
                             if registrationSuccess {
-                                alertMessage = "Your account has been created successfully!"
+                                alertMessage = "Votre compte a été créé avec succès"
                                 showAlert = true
                                 navigateToLogin = true
                             } else {
-                                alertMessage = viewModel.errorMessage ?? "Account creation failed. Please try again."
+                                alertMessage = viewModel.errorMessage ?? "La création de compte a échoué. Veuillez réessayer."
                                 showAlert = true
                             }
                         } else {
-                            viewModel.errorMessage = "Please fill in all fields correctly."
+                            viewModel.errorMessage = "Veuillez remplir tous les champs correctement"
                         }
                     }
                 }) {

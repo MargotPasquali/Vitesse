@@ -12,11 +12,9 @@ class RegisterViewModel: ObservableObject {
     
     // MARK: - Enums
     
-    /// Enumération des erreurs spécifiques au `RegisterViewModel`.
     enum RegisterViewModelError: Error {
         case registrationFailed
         case missingAccountDetails
-        case passwordNotIdentical
 
         var localizedDescription: String {
             switch self {
@@ -24,8 +22,6 @@ class RegisterViewModel: ObservableObject {
                 return "Échec de l'enregistrement. Assurez-vous que toutes les informations fournies sont correctes. Veuillez réessayer."
             case .missingAccountDetails:
                 return "Des informations sont manquantes. Assurez-vous d'avoir rempli tous les champs requis (nom, prénom, adresse e-mail et mot de passe)."
-            case .passwordNotIdentical:
-                return "Les mots de passe ne correspondent pas. Veuillez vous assurer que le mot de passe et la confirmation du mot de passe sont identiques."
             }
         }
     }
@@ -48,7 +44,6 @@ class RegisterViewModel: ObservableObject {
     
     // MARK: - Validation Methods
     
-    /// Vérifie si le formulaire est valide
     func isFormValid() -> Bool {
         return !firstName.isEmpty &&
         !lastName.isEmpty &&
@@ -57,21 +52,18 @@ class RegisterViewModel: ObservableObject {
         password == confirmPassword
     }
     
-    /// Vérifie si l'adresse email est valide
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let range = NSRange(location: 0, length: email.utf16.count)
         let regex = try! NSRegularExpression(pattern: emailRegEx)
-        
         let match = regex.firstMatch(in: email, options: [], range: range)
         return match != nil && !email.contains("..")
     }
     
     // MARK: - Registration Method
     
-    /// Gère l'inscription et appelle l'API
     func register() async -> Bool {
-        // Validation des champs
+        // Vérifie si le formulaire est valide avant de procéder
         guard isFormValid() else {
             Task { @MainActor in
                 errorMessage = RegisterViewModelError.missingAccountDetails.localizedDescription
@@ -82,47 +74,51 @@ class RegisterViewModel: ObservableObject {
         // Vérifie si les mots de passe sont identiques
         guard password == confirmPassword else {
             Task { @MainActor in
-                errorMessage = RegisterViewModelError.passwordNotIdentical.localizedDescription
+                errorMessage = "Les mots de passe ne correspondent pas. Veuillez vous assurer que le mot de passe et la confirmation du mot de passe sont identiques."
             }
             return false
         }
         
+        Task { @MainActor in
+            isLoading = true // Démarre le chargement
+        }
+        
         do {
-            // Indique que l'inscription est en cours
-            isLoading = true
-
             // Appel à l'API pour créer le compte
             try await registerService.createNewAccount(email: email, password: password, firstName: firstName, lastName: lastName)
             
             Task { @MainActor in
-                // Réinitialisation des erreurs après succès
-                errorMessage = nil
-                isLoading = false
+                errorMessage = nil // Pas d'erreur après succès
+                isLoading = false // Arrête le chargement
             }
             
             return true  // Succès
         } catch let error as RegisterServiceError {
-            // Gestion des erreurs liées au service d'inscription
+            // Gestion des erreurs spécifiques au service d'inscription
             Task { @MainActor in
                 switch error {
                 case .invalidCredentials:
-                    errorMessage = "Les identifiants fournis ne sont pas valides. Veuillez vérifier vos informations."
+                    errorMessage = "Les informations fournies sont invalides. Veuillez vérifier vos informations."
                 case .invalidResponse:
-                    errorMessage = "La réponse du serveur est invalide. Veuillez réessayer plus tard."
-                case .networkError(let networkError):
+                    errorMessage = "Réponse invalide du serveur. Veuillez réessayer plus tard."
+                case .networkError:
+                    // Remplacer la description détaillée de l'erreur réseau par un message générique
                     errorMessage = "Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard."
                 default:
-                    errorMessage = "Une erreur inconnue s'est produite. Veuillez réessayer."
+                    errorMessage = "Une erreur inconnue est survenue. Veuillez réessayer."
                 }
                 isLoading = false
             }
+            return false // Échec après une erreur spécifique
         } catch {
-            // Gestion des erreurs génériques
+            // Gestion des erreurs générales
             Task { @MainActor in
                 errorMessage = "Une erreur est survenue : \(error.localizedDescription)"
                 isLoading = false
             }
+            return false // Échec après une erreur générique
         }
-        return false  // Échec
     }
+
+
 }

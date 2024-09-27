@@ -5,7 +5,6 @@
 //  Created by Margot Pasquali on 05/09/2024.
 //
 
-
 import Foundation
 import VitesseModels
 
@@ -26,7 +25,6 @@ public enum AuthenticationServiceError: Error {
     case unknown
     
 }
-
 
 public final class RemoteAuthenticationService: AuthenticationService {
     

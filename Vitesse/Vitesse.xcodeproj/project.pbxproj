@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0523AB2CA5CA64001C885E /* ApplicantDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0523AA2CA5CA64001C885E /* ApplicantDetailViewModelTests.swift */; };
 		AE1270C02C9889DC00E48262 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270BF2C9889DC00E48262 /* Color+Extensions.swift */; };
 		AE1270C42C9892D700E48262 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1270C32C9892D700E48262 /* SplashScreenView.swift */; };
 		AE1270CE2C98985400E48262 /* Allura-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1270CD2C98985400E48262 /* Allura-Regular.ttf */; };
@@ -16,6 +17,10 @@
 		AE24940C2C9F0CF4006D9101 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */; };
 		AE24940D2C9F0CF4006D9101 /* VitesseNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE24940F2C9F0D7E006D9101 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */; };
+		AE29D8DC2CA441230075DF6D /* VitesseTestUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE29D8DB2CA441230075DF6D /* VitesseTestUtilities.framework */; };
+		AE29D8DD2CA441230075DF6D /* VitesseTestUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE29D8DB2CA441230075DF6D /* VitesseTestUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE29D8E42CA446000075DF6D /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29D8E32CA446000075DF6D /* RegisterViewModelTests.swift */; };
+		AE29D8E62CA474020075DF6D /* ApplicantListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29D8E52CA474020075DF6D /* ApplicantListViewModelTests.swift */; };
 		AE36CADA2C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */; };
 		AE36CB042C89DDAF0038E4D5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; };
 		AE36CB052C89DDAF0038E4D5 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -54,6 +59,7 @@
 			files = (
 				AE24940D2C9F0CF4006D9101 /* VitesseNetworking.framework in Embed Frameworks */,
 				AE2494092C9F0CEF006D9101 /* VitesseModels.framework in Embed Frameworks */,
+				AE29D8DD2CA441230075DF6D /* VitesseTestUtilities.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AE0523AA2CA5CA64001C885E /* ApplicantDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModelTests.swift; sourceTree = "<group>"; };
 		AE1270BF2C9889DC00E48262 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		AE1270C32C9892D700E48262 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		AE1270C82C9894A800E48262 /* Vitesse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Vitesse-Info.plist"; sourceTree = "<group>"; };
@@ -82,6 +89,9 @@
 		AE2494072C9F0CEF006D9101 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		AE29D8DB2CA441230075DF6D /* VitesseTestUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseTestUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE29D8E32CA446000075DF6D /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
+		AE29D8E52CA474020075DF6D /* ApplicantListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantListViewModelTests.swift; sourceTree = "<group>"; };
 		AE36CAD92C88AB9C0038E4D5 /* ApplicantDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailViewModel.swift; sourceTree = "<group>"; };
 		AE36CB032C89DDAF0038E4D5 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +117,7 @@
 			files = (
 				AE24940C2C9F0CF4006D9101 /* VitesseNetworking.framework in Frameworks */,
 				AE2494082C9F0CEF006D9101 /* VitesseModels.framework in Frameworks */,
+				AE29D8DC2CA441230075DF6D /* VitesseTestUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				AE24940E2C9F0D7E006D9101 /* LoginViewModelTests.swift */,
+				AE29D8E32CA446000075DF6D /* RegisterViewModelTests.swift */,
+				AE29D8E52CA474020075DF6D /* ApplicantListViewModelTests.swift */,
+				AE0523AA2CA5CA64001C885E /* ApplicantDetailViewModelTests.swift */,
 			);
 			path = ViewModelTests;
 			sourceTree = "<group>";
@@ -170,6 +184,7 @@
 		AE36CB022C89DDAF0038E4D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE29D8DB2CA441230075DF6D /* VitesseTestUtilities.framework */,
 				AE24940B2C9F0CF4006D9101 /* VitesseNetworking.framework */,
 				AE2494072C9F0CEF006D9101 /* VitesseModels.framework */,
 				AE36CB2B2C89E25E0038E4D5 /* VitesseNetworking.framework */,
@@ -356,7 +371,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE0523AB2CA5CA64001C885E /* ApplicantDetailViewModelTests.swift in Sources */,
 				AE24940F2C9F0D7E006D9101 /* LoginViewModelTests.swift in Sources */,
+				AE29D8E62CA474020075DF6D /* ApplicantListViewModelTests.swift in Sources */,
+				AE29D8E42CA446000075DF6D /* RegisterViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
