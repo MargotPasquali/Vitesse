@@ -52,23 +52,20 @@ final class ApplicantListViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage, "Le message d'erreur devrait être nul après un succès.")
     }
 
-//    func testFetchApplicantDetailList_Failure_NetworkError() async throws {
-//        // Given
-//        mockNetworkManager.response = FakeResponseData.responseKo  // Simule une réponse 500
-//        mockNetworkManager.responseData = Data() // Pas de données nécessaires
-//
-//        // Créer un NSError pour simuler une erreur réseau 500
-//        let networkError = NSError(domain: "NetworkError", code: FakeResponseData.responseKo.statusCode, userInfo: [NSLocalizedDescriptionKey: "La réponse du serveur est invalide."])
-//        mockApplicantService.simulatedError = .networkError(networkError) // Utilise l'erreur créée
-//
-//        // When
-//        await viewModel.fetchApplicantDetailList()
-//
-//        // Then
-//        XCTAssertTrue(viewModel.applicants.isEmpty, "Le ViewModel ne devrait pas avoir de candidats après un échec.")
-//        XCTAssertFalse(viewModel.isLoading, "isLoading devrait être false après une erreur.")
-//        XCTAssertEqual(viewModel.errorMessage, "Erreur réseau : La réponse du serveur est invalide.", "Le message d'erreur devrait refléter l'erreur réseau 500.")
-//    }
+    func testFetchApplicantDetailList_Failure_NetworkError() async throws {
+        // Given
+        // Simule uniquement l'erreur dans MockApplicantService
+        let networkError = NSError(domain: "NetworkError", code: FakeResponseData.responseKo.statusCode, userInfo: [NSLocalizedDescriptionKey: "La réponse du serveur est invalide."])
+        mockApplicantService.simulatedError = .networkError(networkError)
+
+        // When
+        await viewModel.fetchApplicantDetailList()
+
+        // Then
+        XCTAssertTrue(viewModel.applicants.isEmpty, "Le ViewModel ne devrait pas avoir de candidats après un échec.")
+        XCTAssertFalse(viewModel.isLoading, "isLoading devrait être false après une erreur.")
+        XCTAssertEqual(viewModel.errorMessage, "Erreur réseau : La réponse du serveur est invalide.", "Le message d'erreur devrait refléter l'erreur réseau 500.")
+    }
 
     // MARK: - Tests de filtrage des candidats
 
@@ -141,23 +138,22 @@ final class ApplicantListViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.applicants.first!.isFavorite, "Le statut 'favori' du candidat devrait être basculé avec succès.")
     }
 
-//    func testToggleFavoriteStatus_Failure_NetworkError() async throws {
-//        // Given
-//        let applicant = ApplicantDetail(id: UUID(), firstName: "John", lastName: "Doe", email: "john.doe@example.com", phone: "1234567890", linkedinURL: nil, note: nil, isFavorite: false)
-//        viewModel.applicants = [applicant]
-//        
-//        // Simuler une erreur réseau (comme une erreur 500)
-//        let networkError = NSError(domain: "NetworkError", code: FakeResponseData.responseKo.statusCode, userInfo: [NSLocalizedDescriptionKey: "La réponse du serveur est invalide."])
-//        mockApplicantService.simulatedError = .networkError(networkError)
-//
-//        // When
-//        await viewModel.toggleFavoriteStatus(for: applicant)
-//
-//        // Then
-//        XCTAssertFalse(viewModel.applicants.first!.isFavorite, "Le statut 'favori' du candidat ne devrait pas changer après une erreur réseau.")
-//        XCTAssertEqual(viewModel.errorMessage, "Erreur réseau : La réponse du serveur est invalide.", "Le message d'erreur devrait refléter l'échec réseau 500.")
-//    }
+    func testToggleFavoriteStatus_Failure_NetworkError() async throws {
+        // Given
+        let applicant = ApplicantDetail(id: UUID(), firstName: "John", lastName: "Doe", email: "john.doe@example.com", phone: "1234567890", linkedinURL: nil, note: nil, isFavorite: false)
+        viewModel.applicants = [applicant]
 
+        // Simuler une erreur réseau (comme une erreur 500)
+        let networkError = NSError(domain: "NetworkError", code: FakeResponseData.responseKo.statusCode, userInfo: [NSLocalizedDescriptionKey: "Erreur réseau : La réponse du serveur est invalide."])
+        mockApplicantService.simulatedError = .networkError(networkError)
+
+        // When
+        await viewModel.toggleFavoriteStatus(for: applicant)
+
+        // Then
+        XCTAssertFalse(viewModel.applicants.first!.isFavorite, "Le statut 'favori' du candidat ne devrait pas changer après une erreur réseau.")
+        XCTAssertEqual(viewModel.errorMessage, "Erreur réseau : La réponse du serveur est invalide.", "Le message d'erreur devrait refléter l'échec réseau.")
+    }
 
     // MARK: - Tests de suppression de candidats sélectionnés
 
@@ -174,29 +170,31 @@ final class ApplicantListViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.applicants.isEmpty, "Les candidats sélectionnés devraient être supprimés avec succès.")
     }
 
-//    func testDeleteSelectedApplicants_Failure_NetworkError() async throws {
-//        let expectation = XCTestExpectation(description: "Suppression du candidat après une erreur réseau")
-//
-//        // Given
-//        let applicant = ApplicantDetail(id: UUID(), firstName: "John", lastName: "Doe", email: "john.doe@example.com", phone: "1234567890", linkedinURL: nil, note: nil, isFavorite: false)
-//        viewModel.applicants = [applicant]
-//        viewModel.selectedApplicants = [applicant.id]
-//        
-//        // Simuler une erreur serveur
-//        mockApplicantService.simulatedError = .serverError(500, message: "Erreur interne du serveur. Veuillez réessayer plus tard.")
-//
-//        // When
-//        await viewModel.deleteSelectedApplicants()
-//
-//        // Forcer la mise à jour asynchrone
-//        await Task.yield()
-//
-//        // Then
-//        XCTAssertFalse(viewModel.applicants.isEmpty, "Les candidats ne devraient pas être supprimés après une erreur réseau.")
-//        XCTAssertEqual(viewModel.errorMessage, "Erreur interne du serveur. Veuillez réessayer plus tard.", "Le message d'erreur devrait refléter l'échec réseau 500.")
-//
-//        expectation.fulfill()
-//        await wait(for: [expectation], timeout: 2.0)
-//    }
+    func testDeleteSelectedApplicants_Failure_NetworkError() async throws {
+        // Given
+        let applicant = ApplicantDetail(id: UUID(), firstName: "John", lastName: "Doe", email: "john.doe@example.com", phone: "1234567890", linkedinURL: nil, note: nil, isFavorite: false)
+        viewModel.applicants = [applicant]
+        viewModel.selectedApplicants = [applicant.id]
+
+        // Simuler une erreur réseau de type ApplicantServiceError.networkError
+        let networkError = NSError(domain: "NetworkError", code: FakeResponseData.responseKo.statusCode, userInfo: [NSLocalizedDescriptionKey: "Erreur réseau : La réponse du serveur est invalide."])
+        mockApplicantService.simulatedError = .networkError(networkError)
+
+        // When
+        await viewModel.deleteSelectedApplicants()
+
+        // Forcer la mise à jour asynchrone
+        await Task.yield()
+
+        // Then
+        XCTAssertFalse(viewModel.applicants.isEmpty, "Les candidats ne devraient pas être supprimés après une erreur réseau.")
+        XCTAssertEqual(viewModel.errorMessage, "Erreur réseau : La réponse du serveur est invalide.", "Le message d'erreur devrait refléter l'échec réseau 500.")
+
+        // Utilisation correcte de fulfillment dans un contexte async
+        let expectation = XCTestExpectation(description: "Suppression du candidat après une erreur réseau")
+        expectation.fulfill()
+        await fulfillment(of: [expectation], timeout: 2.0)
+    }
+
 
 }

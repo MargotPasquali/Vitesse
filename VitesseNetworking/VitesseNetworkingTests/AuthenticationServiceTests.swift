@@ -6,9 +6,11 @@
 //
 
 import XCTest
-@testable import Vitesse
-@testable import VitesseModels
-@testable import VitesseTestUtilities
+@testable import VitesseNetworking
+import Vitesse
+import VitesseModels
+import VitesseTestUtilities
+
 
 final class AuthenticationServiceTests: XCTestCase {
     

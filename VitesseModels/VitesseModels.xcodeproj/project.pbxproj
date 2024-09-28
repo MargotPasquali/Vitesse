@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE36CAF62C89D89B0038E4D5 /* VitesseModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CAF52C89D89B0038E4D5 /* VitesseModelsTests.swift */; };
+		AE2CAB772CA844E100A33636 /* AuthenticationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CAB762CA844E100A33636 /* AuthenticationRequestTests.swift */; };
+		AE2CAB792CA845A000A33636 /* ApplicantDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CAB782CA845A000A33636 /* ApplicantDetailTests.swift */; };
+		AE2CAB7B2CA84BF600A33636 /* ApplicationCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CAB7A2CA84BF600A33636 /* ApplicationCreationRequestTests.swift */; };
 		AE36CB412C89E6A20038E4D5 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB402C89E6A20038E4D5 /* AuthenticationRequest.swift */; };
 		AE36CB422C89E6A20038E4D5 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB402C89E6A20038E4D5 /* AuthenticationRequest.swift */; };
 		AE36CB442C89E77E0038E4D5 /* ApplicantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB432C89E77E0038E4D5 /* ApplicantDetail.swift */; };
@@ -18,6 +20,8 @@
 		AE36CB4B2C89E8070038E4D5 /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB492C89E8070038E4D5 /* AuthenticationResponse.swift */; };
 		AE36CB4D2C89E8310038E4D5 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4C2C89E8310038E4D5 /* RegisterRequest.swift */; };
 		AE36CB4E2C89E8310038E4D5 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4C2C89E8310038E4D5 /* RegisterRequest.swift */; };
+		AEC59C0F2CA84ED90043CB15 /* AuthenticationResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC59C0E2CA84ED90043CB15 /* AuthenticationResponseTests.swift */; };
+		AEC59C112CA84FA10043CB15 /* RegisterRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC59C102CA84FA10043CB15 /* RegisterRequestTests.swift */; };
 		AED6E6312C9DC6A40011D9B5 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */; };
 		AED6E6322C9DC6A40011D9B5 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -47,15 +51,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AE2CAB762CA844E100A33636 /* AuthenticationRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequestTests.swift; sourceTree = "<group>"; };
+		AE2CAB782CA845A000A33636 /* ApplicantDetailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetailTests.swift; sourceTree = "<group>"; };
+		AE2CAB7A2CA84BF600A33636 /* ApplicationCreationRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCreationRequestTests.swift; sourceTree = "<group>"; };
 		AE31754B2C8B2B1100C931B6 /* VitesseNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CAE62C89D89B0038E4D5 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE36CAF02C89D89B0038E4D5 /* VitesseModelsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VitesseModelsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE36CAF52C89D89B0038E4D5 /* VitesseModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitesseModelsTests.swift; sourceTree = "<group>"; };
 		AE36CB402C89E6A20038E4D5 /* AuthenticationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequest.swift; sourceTree = "<group>"; };
 		AE36CB432C89E77E0038E4D5 /* ApplicantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantDetail.swift; sourceTree = "<group>"; };
 		AE36CB462C89E7D40038E4D5 /* ApplicationCreationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCreationRequest.swift; sourceTree = "<group>"; };
 		AE36CB492C89E8070038E4D5 /* AuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponse.swift; sourceTree = "<group>"; };
 		AE36CB4C2C89E8310038E4D5 /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		AEC59C0E2CA84ED90043CB15 /* AuthenticationResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationResponseTests.swift; sourceTree = "<group>"; };
+		AEC59C102CA84FA10043CB15 /* RegisterRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequestTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +127,11 @@
 		AE36CAF42C89D89B0038E4D5 /* VitesseModelsTests */ = {
 			isa = PBXGroup;
 			children = (
-				AE36CAF52C89D89B0038E4D5 /* VitesseModelsTests.swift */,
+				AE2CAB762CA844E100A33636 /* AuthenticationRequestTests.swift */,
+				AE2CAB782CA845A000A33636 /* ApplicantDetailTests.swift */,
+				AE2CAB7A2CA84BF600A33636 /* ApplicationCreationRequestTests.swift */,
+				AEC59C0E2CA84ED90043CB15 /* AuthenticationResponseTests.swift */,
+				AEC59C102CA84FA10043CB15 /* RegisterRequestTests.swift */,
 			);
 			path = VitesseModelsTests;
 			sourceTree = "<group>";
@@ -245,10 +257,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE36CAF62C89D89B0038E4D5 /* VitesseModelsTests.swift in Sources */,
+				AEC59C112CA84FA10043CB15 /* RegisterRequestTests.swift in Sources */,
 				AE36CB422C89E6A20038E4D5 /* AuthenticationRequest.swift in Sources */,
 				AE36CB4E2C89E8310038E4D5 /* RegisterRequest.swift in Sources */,
+				AE2CAB792CA845A000A33636 /* ApplicantDetailTests.swift in Sources */,
+				AE2CAB772CA844E100A33636 /* AuthenticationRequestTests.swift in Sources */,
 				AE36CB482C89E7D40038E4D5 /* ApplicationCreationRequest.swift in Sources */,
+				AE2CAB7B2CA84BF600A33636 /* ApplicationCreationRequestTests.swift in Sources */,
+				AEC59C0F2CA84ED90043CB15 /* AuthenticationResponseTests.swift in Sources */,
 				AE36CB4B2C89E8070038E4D5 /* AuthenticationResponse.swift in Sources */,
 				AE36CB452C89E77E0038E4D5 /* ApplicantDetail.swift in Sources */,
 			);

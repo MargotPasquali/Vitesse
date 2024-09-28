@@ -14,15 +14,12 @@
 		AE3175502C8B2D4000C931B6 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE31754F2C8B2D4000C931B6 /* VitesseModels.framework */; };
 		AE3175512C8B2D4000C931B6 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE31754F2C8B2D4000C931B6 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE36CB502C89E98C0038E4D5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4F2C89E98C0038E4D5 /* NetworkManager.swift */; };
-		AE36CB512C89E98C0038E4D5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB4F2C89E98C0038E4D5 /* NetworkManager.swift */; };
 		AE36CB542C89E9BF0038E4D5 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB532C89E9BF0038E4D5 /* AuthenticationService.swift */; };
-		AE36CB552C89E9BF0038E4D5 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB532C89E9BF0038E4D5 /* AuthenticationService.swift */; };
 		AE36CB572C89E9EB0038E4D5 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB562C89E9EB0038E4D5 /* RegisterService.swift */; };
-		AE36CB582C89E9EB0038E4D5 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB562C89E9EB0038E4D5 /* RegisterService.swift */; };
 		AE36CB5A2C89EA110038E4D5 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB592C89EA110038E4D5 /* ApplicantService.swift */; };
-		AE36CB5B2C89EA110038E4D5 /* ApplicantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE36CB592C89EA110038E4D5 /* ApplicantService.swift */; };
 		AE49A98F2CA43B5700BB26C0 /* VitesseModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE49A98E2CA43B5700BB26C0 /* VitesseModels.framework */; };
 		AE49A9902CA43B5700BB26C0 /* VitesseModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE49A98E2CA43B5700BB26C0 /* VitesseModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AEADC3FF2CA6EE650057517A /* ApplicantServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEADC3FE2CA6EE640057517A /* ApplicantServiceTests.swift */; };
 		AED6E62E2C9DC6880011D9B5 /* VitesseNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */; };
 		AED6E62F2C9DC6880011D9B5 /* VitesseNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE36CB112C89E2170038E4D5 /* VitesseNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -77,6 +74,7 @@
 		AE36CB562C89E9EB0038E4D5 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		AE36CB592C89EA110038E4D5 /* ApplicantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantService.swift; sourceTree = "<group>"; };
 		AE49A98E2CA43B5700BB26C0 /* VitesseModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VitesseModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEADC3FE2CA6EE640057517A /* ApplicantServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicantServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +104,7 @@
 			children = (
 				AE1F90E52CA5CDAD002A3970 /* AuthenticationServiceTests.swift */,
 				AE1F90EA2CA5E532002A3970 /* RegisterServiceTests.swift */,
+				AEADC3FE2CA6EE640057517A /* ApplicantServiceTests.swift */,
 			);
 			path = VitesseNetworkingTests;
 			sourceTree = "<group>";
@@ -281,12 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEADC3FF2CA6EE650057517A /* ApplicantServiceTests.swift in Sources */,
 				AE1F90EB2CA5E532002A3970 /* RegisterServiceTests.swift in Sources */,
-				AE36CB552C89E9BF0038E4D5 /* AuthenticationService.swift in Sources */,
-				AE36CB512C89E98C0038E4D5 /* NetworkManager.swift in Sources */,
-				AE36CB582C89E9EB0038E4D5 /* RegisterService.swift in Sources */,
 				AE1F90E62CA5CDAD002A3970 /* AuthenticationServiceTests.swift in Sources */,
-				AE36CB5B2C89EA110038E4D5 /* ApplicantService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

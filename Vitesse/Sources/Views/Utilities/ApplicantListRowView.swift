@@ -19,15 +19,10 @@ struct ApplicantListRowView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
             HStack {
-                Text(applicant.firstName)
+                Text("\(applicant.firstName) \(applicant.lastName)")
                     .font(Font.custom("Outfit", size: 18))
                     .fontWeight(.regular)
                     .font(.headline)
-                Text(applicant.lastName)
-                    .font(Font.custom("Outfit", size: 18))
-                    .fontWeight(.regular)
-                    .font(.headline)
-                
                 Spacer()
 
                 // Étoile cliquable pour basculer le statut de favori

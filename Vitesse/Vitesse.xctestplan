@@ -31,6 +31,13 @@
         "identifier" : "AE1A48F22C9B0F9000E55FFC",
         "name" : "VitesseTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/VitesseModels\/VitesseModels.xcodeproj",
+        "identifier" : "AE36CAEF2C89D89B0038E4D5",
+        "name" : "VitesseModelsTests"
+      }
     }
   ],
   "version" : 1

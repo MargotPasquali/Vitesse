@@ -128,7 +128,6 @@ class LoginViewModelTests: XCTestCase {
         }
     }
 
-    
     func testLogin_MissingAccountDetails() async {
         // Given
         viewModel.email = ""

@@ -17,12 +17,10 @@ class ApplicantListViewModel: ObservableObject {
         case invalidResponse
         case unauthorized
         case missingToken
-        case serverError(Int, message: String)  // Inclure le code de statut et le message
         case networkError(Error)
         case decodingError(DecodingError)
         case unknown
     }
-
 
 
     // MARK: - Published Properties
@@ -66,23 +64,26 @@ class ApplicantListViewModel: ObservableObject {
         print("Fetching applicant details...")
 
         self.isLoading = true
-        
+
         do {
             let applicantList = try await applicantService.getAllCandidates()
             await MainActor.run {
                 self.applicants = applicantList
-                self.isLoading = false
-                self.filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
+                self.isLoading = false  // Assurez-vous de remettre isLoading à false en cas de succès
             }
         } catch let error as ApplicantServiceError {
-            await handleError(error) // Gérer ApplicantServiceError correctement
+            await handleError(error)
+            await MainActor.run {
+                self.isLoading = false  // Remettre isLoading à false après avoir géré l'erreur
+            }
         } catch {
-            // Si l'erreur ne correspond pas à ApplicantServiceError, la convertir explicitement en .networkError
             let wrappedError = ApplicantServiceError.networkError(error)
             await handleError(wrappedError)
+            await MainActor.run {
+                self.isLoading = false  // Assurez-vous que isLoading est false après une erreur générique
+            }
         }
     }
-
 
     // MARK: - Filter Applicants
     
@@ -112,7 +113,7 @@ class ApplicantListViewModel: ObservableObject {
             do {
                 // Cet appel peut lever une erreur serveur
                 try await applicantService.putCandidateAsFavorite(applicant: applicant)
-                
+
                 await MainActor.run {
                     self.applicants[index].isFavorite.toggle()
                 }
@@ -120,14 +121,15 @@ class ApplicantListViewModel: ObservableObject {
                 // Capture des erreurs spécifiques de ApplicantServiceError
                 await handleError(error)
             } catch {
-                // Conversion des erreurs génériques en ApplicantServiceError.unknown
-                await handleError(ApplicantServiceError.unknown)
+                // Ici, tu peux explicitement envelopper l'erreur dans un ApplicantServiceError.networkError si c'est un NSError
+                if let nsError = error as? NSError {
+                    await handleError(ApplicantServiceError.networkError(nsError))
+                } else {
+                    await handleError(ApplicantServiceError.unknown)
+                }
             }
         }
     }
-
-
-
 
     // MARK: - Delete Selected Applicants
     
@@ -150,9 +152,15 @@ class ApplicantListViewModel: ObservableObject {
             await handleError(error)  // Gérer les erreurs spécifiques à ApplicantServiceError
         } catch {
             print("Unknown error captured: \(error)")
-            await handleError(ApplicantServiceError.unknown)  // Transformer les erreurs génériques en .unknown
+            // Ici, si l'erreur est un NSError, on l'enveloppe dans ApplicantServiceError.networkError
+            if let nsError = error as? NSError {
+                await handleError(ApplicantServiceError.networkError(nsError))
+            } else {
+                await handleError(ApplicantServiceError.unknown)  // Transformer les erreurs génériques en .unknown
+            }
         }
     }
+
 
     // MARK: - Error Handling
 
@@ -160,12 +168,15 @@ class ApplicantListViewModel: ObservableObject {
     private func handleError(_ error: Error) {
         if let applicantError = error as? ApplicantServiceError {
             switch applicantError {
-            case .networkError(let networkError as NSError):
-                self.errorMessage = "Erreur réseau : \(networkError.localizedDescription)"
+            case .networkError(let underlyingError):
+                // Tu peux maintenant afficher des détails supplémentaires sur l'erreur sous-jacente
+                if let nsError = underlyingError as? NSError {
+                    self.errorMessage = nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? "Erreur réseau : La réponse du serveur est invalide."
+                } else {
+                    self.errorMessage = "Erreur réseau : La réponse du serveur est invalide."
+                }
             case .invalidResponse:
                 self.errorMessage = "La réponse du serveur est invalide."
-            case .serverError(_, let message):  // Afficher le message d'erreur personnalisé
-                self.errorMessage = message
             case .invalidCredentials:
                 self.errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
             case .unauthorized:
@@ -181,10 +192,7 @@ class ApplicantListViewModel: ObservableObject {
             // Pour toute autre erreur non gérée
             self.errorMessage = "Une erreur inconnue est survenue."
         }
-        self.isLoading = false
         print("Error: \(self.errorMessage ?? "Unknown error")")
     }
-
-
 
 }
