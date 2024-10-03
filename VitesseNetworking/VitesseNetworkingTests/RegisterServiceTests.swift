@@ -5,9 +5,9 @@
 //  Created by Margot Pasquali on 26/09/2024.
 //
 
-import XCTest
 @testable import VitesseNetworking
-import Vitesse
+
+import XCTest
 import VitesseModels
 import VitesseTestUtilities
 

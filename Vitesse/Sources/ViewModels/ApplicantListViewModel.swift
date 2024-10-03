@@ -9,8 +9,10 @@ import Foundation
 import VitesseModels
 import VitesseNetworking
 import Combine
+import SwiftUI
 
-class ApplicantListViewModel: ObservableObject {
+@Observable
+class ApplicantListViewModel {
     
     public enum ApplicantServiceError: Error {
         case invalidCredentials
@@ -25,28 +27,28 @@ class ApplicantListViewModel: ObservableObject {
 
     // MARK: - Published Properties
     
-    @Published var applicants: [ApplicantDetail] = [] {
+    var applicants: [ApplicantDetail] = [] {
         didSet {
             filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
         }
     }
 
-    @Published var searchText: String = "" {
+    var searchText: String = "" {
         didSet {
             filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
         }
     }
 
-    @Published var showFavoritesOnly = false {
+    var showFavoritesOnly = false {
         didSet {
             filterApplicants(searchText: searchText, showFavoritesOnly: showFavoritesOnly)
         }
     }
 
-    @Published var filteredApplicants: [ApplicantDetail] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String? // Pour afficher les erreurs éventuelles
-    @Published var selectedApplicants: Set<UUID> = [] // Suivi des candidats sélectionnés
+    var filteredApplicants: [ApplicantDetail] = []
+    var isLoading: Bool = false
+    var errorMessage: String? // Pour afficher les erreurs éventuelles
+    var selectedApplicants: Set<UUID> = [] // Suivi des candidats sélectionnés
 
     // MARK: - Dependencies
     
@@ -60,28 +62,37 @@ class ApplicantListViewModel: ObservableObject {
 
     // MARK: - Fetch Applicants
 
+    @MainActor
     func fetchApplicantDetailList() async {
         print("Fetching applicant details...")
 
-        self.isLoading = true
+        isLoading = true
 
         do {
             let applicantList = try await applicantService.getAllCandidates()
-            await MainActor.run {
-                self.applicants = applicantList
-                self.isLoading = false  // Assurez-vous de remettre isLoading à false en cas de succès
-            }
+
+            applicants = applicantList
+
+            isLoading = false  // Assurez-vous de remettre isLoading à false en cas de succès
         } catch let error as ApplicantServiceError {
-            await handleError(error)
-            await MainActor.run {
-                self.isLoading = false  // Remettre isLoading à false après avoir géré l'erreur
-            }
+            handleError(error)
+
+            isLoading = false  // Remettre isLoading à false après avoir géré l'erreur
         } catch {
             let wrappedError = ApplicantServiceError.networkError(error)
-            await handleError(wrappedError)
-            await MainActor.run {
-                self.isLoading = false  // Assurez-vous que isLoading est false après une erreur générique
-            }
+
+            handleError(wrappedError)
+
+            isLoading = false  // Assurez-vous que isLoading est false après une erreur générique
+        }
+    }
+
+    private struct TestStruct: Comparable {
+        let firstName: String
+        let lastName: String
+
+        static func < (lhs: ApplicantListViewModel.TestStruct, rhs: ApplicantListViewModel.TestStruct) -> Bool {
+            lhs.firstName < rhs.firstName
         }
     }
 
@@ -92,8 +103,8 @@ class ApplicantListViewModel: ObservableObject {
 
         if !searchText.isEmpty {
             results = results.filter {
-                $0.firstName.lowercased().contains(searchText.lowercased()) ||
-                $0.lastName.lowercased().contains(searchText.lowercased())
+                $0.firstName.compare(searchText, options: .caseInsensitive) == .orderedSame ||
+                $0.lastName.compare(searchText, options: .caseInsensitive) == .orderedSame
             }
         }
 
@@ -166,33 +177,37 @@ class ApplicantListViewModel: ObservableObject {
 
     @MainActor
     private func handleError(_ error: Error) {
+        let errorMessage: String
+
         if let applicantError = error as? ApplicantServiceError {
             switch applicantError {
             case .networkError(let underlyingError):
                 // Tu peux maintenant afficher des détails supplémentaires sur l'erreur sous-jacente
                 if let nsError = underlyingError as? NSError {
-                    self.errorMessage = nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? "Erreur réseau : La réponse du serveur est invalide."
+                    errorMessage = nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? "Erreur réseau : La réponse du serveur est invalide."
                 } else {
-                    self.errorMessage = "Erreur réseau : La réponse du serveur est invalide."
+                    errorMessage = "Erreur réseau : La réponse du serveur est invalide."
                 }
             case .invalidResponse:
-                self.errorMessage = "La réponse du serveur est invalide."
+                errorMessage = "La réponse du serveur est invalide."
             case .invalidCredentials:
-                self.errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
+                errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
             case .unauthorized:
-                self.errorMessage = "Accès non autorisé. Veuillez vous authentifier."
+                errorMessage = "Accès non autorisé. Veuillez vous authentifier."
             case .missingToken:
-                self.errorMessage = "Jeton manquant. Veuillez vous reconnecter."
+                errorMessage = "Jeton manquant. Veuillez vous reconnecter."
             case .decodingError(let decodingError):
-                self.errorMessage = "Erreur de décodage des données : \(decodingError.localizedDescription)"
+                errorMessage = "Erreur de décodage des données : \(decodingError.localizedDescription)"
             case .unknown:
-                self.errorMessage = "Une erreur inconnue est survenue."
+                errorMessage = "Une erreur inconnue est survenue."
             }
         } else {
             // Pour toute autre erreur non gérée
-            self.errorMessage = "Une erreur inconnue est survenue."
+            errorMessage = "Une erreur inconnue est survenue."
         }
+
+        self.errorMessage = errorMessage
+
         print("Error: \(self.errorMessage ?? "Unknown error")")
     }
-
 }

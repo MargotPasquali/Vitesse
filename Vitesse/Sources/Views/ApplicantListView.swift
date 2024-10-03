@@ -9,7 +9,10 @@ import SwiftUI
 import VitesseModels
 
 struct ApplicantListView: View {
-    @ObservedObject var viewModel: ApplicantListViewModel
+
+    @Bindable
+    var viewModel: ApplicantListViewModel
+
     @Environment(\.editMode) private var editMode
     
     let isAdmin: Bool = true
@@ -68,7 +71,7 @@ struct ApplicantListView: View {
                     .listStyle(PlainListStyle())
                     .navigationTitle("Candidats")
                     .navigationBarTitleDisplayMode(.inline)
-                    .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button(editMode?.wrappedValue.isEditing == true ? "Done" : "Edit") {
@@ -98,7 +101,8 @@ struct ApplicantListView: View {
                     }
                 }
             }
-            
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+
             // Overlay pour l'indicateur de chargement
             if viewModel.isLoading {
                 Color.black.opacity(0.4)
