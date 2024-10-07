@@ -60,31 +60,30 @@ class ApplicantListViewModel: ObservableObject {
 
     // MARK: - Fetch Applicants
 
-    func fetchApplicantDetailList() async {
-        print("Fetching applicant details...")
+    @MainActor
+      func fetchApplicantDetailList() async {
+          print("Fetching applicant details...")
 
-        self.isLoading = true
+          isLoading = true
 
-        do {
-            let applicantList = try await applicantService.getAllCandidates()
-            await MainActor.run {
-                self.applicants = applicantList
-                self.isLoading = false  // Assurez-vous de remettre isLoading à false en cas de succès
-            }
-        } catch let error as ApplicantServiceError {
-            await handleError(error)
-            await MainActor.run {
-                self.isLoading = false  // Remettre isLoading à false après avoir géré l'erreur
-            }
-        } catch {
-            let wrappedError = ApplicantServiceError.networkError(error)
-            await handleError(wrappedError)
-            await MainActor.run {
-                self.isLoading = false  // Assurez-vous que isLoading est false après une erreur générique
-            }
-        }
-    }
+          do {
+              let applicantList = try await applicantService.getAllCandidates()
 
+              applicants = applicantList
+
+              isLoading = false  // Assurez-vous de remettre isLoading à false en cas de succès
+          } catch let error as ApplicantServiceError {
+              handleError(error)
+
+              isLoading = false  // Remettre isLoading à false après avoir géré l'erreur
+          } catch {
+              let wrappedError = ApplicantServiceError.networkError(error)
+
+              handleError(wrappedError)
+
+              isLoading = false  // Assurez-vous que isLoading est false après une erreur générique
+          }
+      }
     // MARK: - Filter Applicants
     
     private func filterApplicants(searchText: String, showFavoritesOnly: Bool) {
@@ -165,34 +164,38 @@ class ApplicantListViewModel: ObservableObject {
     // MARK: - Error Handling
 
     @MainActor
-    private func handleError(_ error: Error) {
-        if let applicantError = error as? ApplicantServiceError {
-            switch applicantError {
-            case .networkError(let underlyingError):
-                // Tu peux maintenant afficher des détails supplémentaires sur l'erreur sous-jacente
-                if let nsError = underlyingError as? NSError {
-                    self.errorMessage = nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? "Erreur réseau : La réponse du serveur est invalide."
-                } else {
-                    self.errorMessage = "Erreur réseau : La réponse du serveur est invalide."
-                }
-            case .invalidResponse:
-                self.errorMessage = "La réponse du serveur est invalide."
-            case .invalidCredentials:
-                self.errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
-            case .unauthorized:
-                self.errorMessage = "Accès non autorisé. Veuillez vous authentifier."
-            case .missingToken:
-                self.errorMessage = "Jeton manquant. Veuillez vous reconnecter."
-            case .decodingError(let decodingError):
-                self.errorMessage = "Erreur de décodage des données : \(decodingError.localizedDescription)"
-            case .unknown:
-                self.errorMessage = "Une erreur inconnue est survenue."
-            }
-        } else {
-            // Pour toute autre erreur non gérée
-            self.errorMessage = "Une erreur inconnue est survenue."
-        }
-        print("Error: \(self.errorMessage ?? "Unknown error")")
-    }
+        private func handleError(_ error: Error) {
+            let errorMessage: String
 
-}
+            if let applicantError = error as? ApplicantServiceError {
+                switch applicantError {
+                case .networkError(let underlyingError):
+                    // Tu peux maintenant afficher des détails supplémentaires sur l'erreur sous-jacente
+                    if let nsError = underlyingError as? NSError {
+                        errorMessage = nsError.userInfo[NSLocalizedDescriptionKey] as? String ?? "Erreur réseau : La réponse du serveur est invalide."
+                    } else {
+                        errorMessage = "Erreur réseau : La réponse du serveur est invalide."
+                    }
+                case .invalidResponse:
+                    errorMessage = "La réponse du serveur est invalide."
+                case .invalidCredentials:
+                    errorMessage = "Identifiants invalides. Veuillez vérifier vos informations."
+                case .unauthorized:
+                    errorMessage = "Accès non autorisé. Veuillez vous authentifier."
+                case .missingToken:
+                    errorMessage = "Jeton manquant. Veuillez vous reconnecter."
+                case .decodingError(let decodingError):
+                    errorMessage = "Erreur de décodage des données : \(decodingError.localizedDescription)"
+                case .unknown:
+                    errorMessage = "Une erreur inconnue est survenue."
+                }
+            } else {
+                // Pour toute autre erreur non gérée
+                errorMessage = "Une erreur inconnue est survenue."
+            }
+
+            self.errorMessage = errorMessage
+
+            print("Error: \(self.errorMessage ?? "Unknown error")")
+        }
+    }

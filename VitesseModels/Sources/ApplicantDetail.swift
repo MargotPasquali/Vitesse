@@ -20,7 +20,6 @@ public class ApplicantDetail: Identifiable, Codable, Equatable {
     public var isFavorite: Bool {
         didSet {
             print("isFavorite a changé pour \(isFavorite)")
-            // Ajoutez toute logique que vous souhaitez exécuter lorsque isFavorite change
         }
     }
 

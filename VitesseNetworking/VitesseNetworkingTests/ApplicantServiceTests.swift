@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import VitesseNetworking
-import Vitesse
 import VitesseModels
 import VitesseTestUtilities
 
